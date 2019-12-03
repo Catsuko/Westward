@@ -1,14 +1,11 @@
-from .occupied_tile import *
-
-
-class OpenTile:
+class WallTile:
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
     def enter(self, actor, origin):
-        return OccupiedTile(self.x, self.y, actor)
+        return origin
 
     def leave(self, actor):
         return self
@@ -23,5 +20,4 @@ class OpenTile:
         return x == self.x and y == self.y
 
     def print_to(self, media):
-        media.print_open_space(self.x, self.y)
-
+        media.print_wall(self.x, self.y)
