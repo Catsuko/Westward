@@ -7,7 +7,7 @@ class BlockedSpace:
         return self
 
     def update(self, area, tile):
-        return [tile]
+        return []
 
     def print_to(self, x, y, media):
         return media.with_wall(x, y)

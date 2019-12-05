@@ -10,7 +10,7 @@ class OpenSpace:
         return self
 
     def update(self, area, tile):
-        return [tile]
+        return []
 
     def print_to(self, x, y, media):
         return media.with_open_space(x, y)
