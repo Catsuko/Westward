@@ -22,5 +22,8 @@ class Tile:
     def at_position(self, x, y):
         return x == self.x and y == self.y
 
+    def neighbour(self, area, x_offset, y_offset):
+        return area.neighbour(self.x, self.y, x_offset, y_offset)
+
     def print_to(self, media):
         return self.space.print_to(self.x, self.y, media)
