@@ -6,7 +6,7 @@ class Tile:
         self.space = space
 
     def enter(self, actor, origin):
-        return Tile(self.x, self.y, self.space.enter(actor, origin))
+        return Tile(self.x, self.y, self.space.enter(actor))
 
     def leave(self, actor):
         return Tile(self.x, self.y, self.space.leave(actor))

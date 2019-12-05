@@ -6,7 +6,7 @@ class OccupiedSpace:
     def __init__(self, occupant):
         self.occupant = occupant
 
-    def enter(self, actor, origin):
+    def enter(self, actor):
         return self
 
     def leave(self, actor):

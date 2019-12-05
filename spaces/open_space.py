@@ -3,7 +3,7 @@ from .occupied_space import *
 
 class OpenSpace:
 
-    def enter(self, actor, origin):
+    def enter(self, actor):
         return OccupiedSpace(actor)
 
     def leave(self, actor):
