@@ -6,10 +6,12 @@ class Tile:
         self.space = space
 
     def enter(self, actor, origin):
-        return Tile(self.x, self.y, self.space.enter(actor))
+        result = self.space.enter(actor)
+        return origin if result == self.space else result
 
     def leave(self, actor):
-        return Tile(self.x, self.y, self.space.leave(actor))
+        result = self.space.leave(actor)
+        return self if result == self.space else result
 
     def update(self, area):
         return self.space.update(area, self)
