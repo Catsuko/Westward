@@ -1,14 +1,15 @@
+from functools import reduce
+
+
 class ConsoleView:
 
     def __init__(self, contents=[]):
         self.contents = contents
 
     def print_area(self, tiles):
-        media = self
-        for tile in tiles:
-            media = tile.print_to(media)
-        print(media)
-        return media
+        impression = reduce(lambda m, t: t.print_to(m), tiles, self)
+        print(impression)
+        return impression
 
     def with_open_space(self, x, y):
         return self.with_character(x, y, "0")
