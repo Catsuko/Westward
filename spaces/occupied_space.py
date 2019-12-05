@@ -1,6 +1,3 @@
-from .open_space import *
-
-
 class OccupiedSpace:
 
     def __init__(self, occupant):
@@ -10,6 +7,7 @@ class OccupiedSpace:
         return self
 
     def leave(self, actor):
+        from .open_space import OpenSpace
         return OpenSpace() if actor == self.occupant else self
 
     def update(self, area, tile):

@@ -1,4 +1,6 @@
 from functools import reduce
+from spaces.blocked_space import BlockedSpace
+from spaces.tile import Tile
 
 
 class Area:
@@ -15,7 +17,8 @@ class Area:
     def tile(self, x, y, x_offset, y_offset):
         target_x = x + round(x_offset)
         target_y = y + round(y_offset)
-        return next((tile for tile in self.tiles if tile.at_position(target_x, target_y)))
+        out_of_bounds = Tile(target_x, target_y, BlockedSpace())
+        return next((tile for tile in self.tiles if tile.at_position(target_x, target_y)), out_of_bounds)
 
     def print_to(self, media):
         return media.print_area(self.tiles)

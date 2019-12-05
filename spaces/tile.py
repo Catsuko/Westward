@@ -7,11 +7,11 @@ class Tile:
 
     def enter(self, actor, origin):
         result = self.space.enter(actor)
-        return origin if result == self.space else result
+        return origin if result == self.space else Tile(self.x, self.y, result)
 
     def leave(self, actor):
         result = self.space.leave(actor)
-        return self if result == self.space else result
+        return self if result == self.space else Tile(self.x, self.y, result)
 
     def update(self, area):
         return self.space.update(area, self)
@@ -23,7 +23,7 @@ class Tile:
         return x == self.x and y == self.y
 
     def neighbour(self, area, x_offset, y_offset):
-        return area.neighbour(self.x, self.y, x_offset, y_offset)
+        return area.tile(self.x, self.y, x_offset, y_offset)
 
     def print_to(self, media):
         return self.space.print_to(self.x, self.y, media)

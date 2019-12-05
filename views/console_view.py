@@ -17,6 +17,9 @@ class ConsoleView:
     def with_wall(self, x, y):
         return self.with_character(x, y, "#")
 
+    def with_actor(self, x, y, key):
+        return self.with_character(x, y, key)
+
     def with_character(self, x, y, character):
         rows = self.contents.split("\n")
         width = len(rows[0])
