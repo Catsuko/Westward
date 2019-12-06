@@ -12,6 +12,7 @@ player = Actor(InputEngine({
 area = AreaBuilder().rectangle(5, 5)\
                     .with_actor(player, 0, 0)\
                     .with_actor(npc, 4, 0)\
+                    .with_den(0, 4, 5, 3)\
                     .to_area()
 
 while True:
