@@ -27,3 +27,6 @@ class Tile:
 
     def print_to(self, media):
         return self.space.print_to(self.x, self.y, media)
+
+    def __str__(self):
+        return "%s Tile (%d, %d)" % (self.space.__class__.__name__, self.x, self.y)

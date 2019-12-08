@@ -14,7 +14,7 @@ class Area:
     def with_tiles(self, tiles):
         return Area([self.__updated_or_current(tiles, tile) for tile in self.tiles])
 
-    def tile(self, x, y, x_offset, y_offset):
+    def tile(self, x, y, x_offset=0, y_offset=0):
         target_x = x + round(x_offset)
         target_y = y + round(y_offset)
         out_of_bounds = Tile(target_x, target_y, BlockedSpace())

@@ -26,8 +26,8 @@ class ConsoleView:
         height = len(rows)
         rows.extend([" " for i in range(max((y-height)+1, 0))])
         rows = [row + (" " * max(x - width, 0)) for row in rows]
-        rows[y] = rows[y][:x] + character + rows[y][x+1:]
+        rows[y] = (rows[y][:x] + character + rows[y][x+1:])
         return ConsoleView("\n".join(rows))
 
     def __str__(self):
-        return self.contents
+        return '\n'.join([s.lstrip() for s in self.contents.split('\n')])
