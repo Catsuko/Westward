@@ -1,4 +1,4 @@
-from spaces.area_builder import AreaBuilder
+from world.area_builder import AreaBuilder
 from actors.actor import Actor
 from actors.input_engine import InputEngine
 from views.console_view import ConsoleView
@@ -9,7 +9,6 @@ new_areas = []
 player = Actor(input_engine, '@', lambda a: new_areas.append(a))
 area = AreaBuilder().rectangle(5, 5)\
                     .with_actor(player, 2, 0)\
-                    .with_door(5, 0, sub_area)\
                     .to_area()
 
 # TODO: Refactor this code outta limbo!

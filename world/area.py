@@ -1,6 +1,6 @@
 from functools import reduce
-from environment.blocked_space import BlockedSpace
-from environment.tile import Tile
+from world.blocked_space import BlockedSpace
+from world.tile import Tile
 
 
 class Area:

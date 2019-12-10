@@ -5,10 +5,10 @@ class Actor:
         self.engine = engine
         self.area_listener = area_listener
 
-    def act(self, area, origin):
-        target_dir = self.engine.pick_movement_direction(area, origin)
-        target = origin.neighbour(area, target_dir[0], target_dir[1])
-        return [origin.leave(self), target.enter(self, origin)]
+    def act(self, tile, area):
+        target_dir = self.engine.pick_movement_direction(area, tile)
+        target = tile.neighbour(area, target_dir[0], target_dir[1])
+        return target.enter(self, tile, tile.leave(self, area))
 
     def survey(self, area):
         if self.area_listener is not None:
