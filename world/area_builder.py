@@ -1,9 +1,9 @@
-from spaces.area import Area
-from spaces.den_tile import DenTile
-from spaces.door_tile import DoorTile
-from spaces.occupied_space import OccupiedSpace
-from spaces.open_space import OpenSpace
-from spaces.tile import Tile
+from environment.area import Area
+from environment.den_tile import DenTile
+from environment.door_tile import DoorTile
+from environment.occupied_space import OccupiedSpace
+from environment.open_space import OpenSpace
+from environment.tile import Tile
 
 
 class AreaBuilder:

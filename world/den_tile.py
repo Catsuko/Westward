@@ -19,7 +19,7 @@ class DenTile:
 
     # TODO: Update sub-area then return den with updated sub-area
     def update(self, area):
-        return []
+        return area
 
     def same_position_as(self, other_tile):
         return any([other_tile.at_position(x + self.x, y + self.y) for y in range(self.height) for x in range(self.width)])

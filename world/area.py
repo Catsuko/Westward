@@ -1,6 +1,6 @@
 from functools import reduce
-from spaces.blocked_space import BlockedSpace
-from spaces.tile import Tile
+from environment.blocked_space import BlockedSpace
+from environment.tile import Tile
 
 
 class Area:
@@ -9,7 +9,7 @@ class Area:
         self.tiles = tiles
 
     def update(self):
-        return reduce(lambda area, tile: area.with_tiles(tile.update(area)), self.tiles, self)
+        return reduce(lambda area, tile: tile.update(area), self.tiles, self)
 
     def with_tiles(self, tiles):
         return Area([self.__updated_or_current(tiles, tile) for tile in self.tiles])
