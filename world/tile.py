@@ -20,8 +20,11 @@ class Tile:
     def at_position(self, x, y):
         return x == self.x and y == self.y
 
-    def neighbour(self, area, x_offset, y_offset):
-        return area.tile(self.x, self.y, x_offset, y_offset)
+    def surrounds(self, x, y):
+        return x == self.x and y == self.y
+
+    def neighbour(self, x_offset, y_offset, world):
+        return world.tile(self.x + x_offset, self.y + y_offset)
 
     def with_space(self, space):
         return Tile(self.x, self.y, space)

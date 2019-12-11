@@ -3,15 +3,15 @@ class OccupiedSpace:
     def __init__(self, occupant):
         self.occupant = occupant
 
-    def enter(self, actor, origin, tile, area):
-        return area.with_tiles([origin])
+    def enter(self, actor, origin, tile, world):
+        return [origin]
 
-    def leave(self, actor, tile, area):
+    def leave(self, actor, tile, world):
         from .open_space import OpenSpace
-        return area.with_tiles([tile.with_space(OpenSpace())]) if actor == self.occupant else area
+        return [tile.with_space(OpenSpace()) if actor == self.occupant else self]
 
-    def update(self, tile, area):
-        return self.occupant.act(tile, area)
+    def update(self, tile, world):
+        return self.occupant.act(tile, world)
 
     def print_to(self, x, y, media):
         return self.occupant.print_to(x, y, media)
