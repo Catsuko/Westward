@@ -11,17 +11,23 @@ class Tile:
     def leave(self, actor, area):
         return self.space.leave(actor, self, area)
 
-    def update(self, area):
-        return self.space.update(self, area)
+    def update(self, root):
+        return self.space.update(self, root)
 
-    def same_position_as(self, other_tile):
-        return other_tile.at_position(self.x, self.y)
+    def with_tile(self, tile):
+        return tile if tile.surrounds(self.x, self.y) else self
 
-    def at_position(self, x, y):
+    def enclosed_by(self, area):
+        return area.surrounds(self.x, self.y)
+
+    def surrounds(self, x, y):
         return x == self.x and y == self.y
 
-    def neighbour(self, area, x_offset, y_offset):
-        return area.tile(self.x, self.y, x_offset, y_offset)
+    def neighbour(self, x_offset, y_offset, root):
+        return root.tile(self.x + x_offset, self.y + y_offset)
+
+    def tile(self, x, y):
+        return self
 
     def with_space(self, space):
         return Tile(self.x, self.y, space)

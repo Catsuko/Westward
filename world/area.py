@@ -1,28 +1,29 @@
 from functools import reduce
-from world.blocked_space import BlockedSpace
-from world.tile import Tile
 
 
 class Area:
 
-    def __init__(self, tiles=[]):
-        self.tiles = tiles
+    def __init__(self, sub_areas=[]):
+        self.sub_areas = sub_areas
 
-    def update(self):
-        return reduce(lambda area, tile: tile.update(area), self.tiles, self)
+    def update(self, root=None):
+        return reduce(lambda area, sub_area: sub_area.update(area), self.sub_areas, root or self)
 
-    def with_tiles(self, tiles):
-        return Area([self.__updated_or_current(tiles, tile) for tile in self.tiles])
+    def with_tile(self, tile):
+        return Area([sub_area.with_tile(tile) if tile.enclosed_by(sub_area) else sub_area for sub_area in self.sub_areas])
 
-    def tile(self, x, y, x_offset=0, y_offset=0):
-        target_x = x + round(x_offset)
-        target_y = y + round(y_offset)
-        out_of_bounds = Tile(target_x, target_y, BlockedSpace())
-        return next((tile for tile in self.tiles if tile.at_position(target_x, target_y)), out_of_bounds)
+    # TODO: Return out of bounds tile when tile is not found.
+    def tile(self, x, y):
+        x = round(x)
+        y = round(y)
+        return next((sub_area.tile(x, y) for sub_area in self.sub_areas if sub_area.surrounds(x, y)), None)
+
+    def surrounds(self, x, y):
+        return any([sub_area.surrounds(x, y) for sub_area in self.sub_areas])
+
+    def enclosed_by(self, area):
+        return all([sub_area.enclosed_by(area) for sub_area in self.sub_areas])
 
     def print_to(self, media):
-        return media.print_area(self.tiles)
-
-    def __updated_or_current(self, updates, current):
-        return next((new_tile for new_tile in updates[::-1] if new_tile.same_position_as(current)), current)
+        return media.print_area(self.sub_areas)
 
