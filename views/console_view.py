@@ -8,7 +8,6 @@ class ConsoleView:
 
     def print_area(self, tiles):
         impression = reduce(lambda m, t: t.print_to(m), tiles, self)
-        print(impression)
         return impression
 
     def with_open_space(self, x, y):

@@ -13,7 +13,7 @@ class AreaBuilder:
 
     def with_actor(self, actor, x, y):
         new_tile = Tile(x + self.x, y + self.y, OccupiedSpace(actor))
-        return AreaBuilder(self.x, self.y, [new_tile if new_tile.same_position_as(tile) else tile for tile in self.tiles])
+        return AreaBuilder(self.x, self.y, [new_tile if new_tile.enclosed_by(tile) else tile for tile in self.tiles])
 
     def rectangle(self, width, height):
         open_space = OpenSpace()
