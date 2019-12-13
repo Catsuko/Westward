@@ -11,7 +11,7 @@ class ConsoleView:
         return impression
 
     def with_open_space(self, x, y):
-        return self.with_character(x, y, "0")
+        return self.with_character(x, y, ".")
 
     def with_wall(self, x, y):
         return self.with_character(x, y, "#")
