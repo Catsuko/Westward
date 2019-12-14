@@ -5,8 +5,8 @@ class DoorSpace:
         self.exit_y = exit_y
 
     def enter(self, actor, origin, tile, root):
-        exit = root.tile(self.exit_x, self.exit_y)
-        return exit.enter(actor, origin, root)
+        exit_tile = root.tile(self.exit_x, self.exit_y)
+        return exit_tile.enter(actor, origin, root)
 
     def leave(self, actor, tile, root):
         return root

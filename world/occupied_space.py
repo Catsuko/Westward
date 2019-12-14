@@ -4,7 +4,7 @@ class OccupiedSpace:
         self.occupant = occupant
 
     def enter(self, actor, origin, tile, root):
-        return root
+        return root.with_tile(origin)
 
     def leave(self, actor, tile, root):
         from .open_space import OpenSpace

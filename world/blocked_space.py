@@ -1,7 +1,7 @@
 class BlockedSpace:
 
     def enter(self, actor, origin, tile, root):
-        return root
+        return root.with_tile(origin)
 
     def leave(self, actor, tile, root):
         return root
