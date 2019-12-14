@@ -21,7 +21,7 @@ class Tile:
         return area.surrounds(self.x, self.y)
 
     def surrounds(self, x, y):
-        return x == self.x and y == self.y
+        return abs(x - self.x) < 1 and abs(y - self.y) < 1
 
     def neighbour(self, x_offset, y_offset, root):
         return root.tile(self.x + x_offset, self.y + y_offset)

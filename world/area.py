@@ -14,8 +14,6 @@ class Area:
 
     # TODO: Return out of bounds tile when tile is not found.
     def tile(self, x, y):
-        x = round(x)
-        y = round(y)
         return next((sub_area.tile(x, y) for sub_area in self.sub_areas if sub_area.surrounds(x, y)), None)
 
     def surrounds(self, x, y):
