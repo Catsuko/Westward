@@ -1,4 +1,5 @@
 from world.area import Area
+from world.ledge_space import LedgeSpace
 from world.occupied_space import OccupiedSpace
 from world.open_space import OpenSpace
 from world.tile import Tile
@@ -13,12 +14,17 @@ class AreaBuilder:
         self.tiles = tiles
 
     def with_actor(self, actor, x, y):
-        new_tile = Tile(x + self.x, y + self.y, OccupiedSpace(actor))
-        return AreaBuilder(self.x, self.y, [new_tile if new_tile.enclosed_by(tile) else tile for tile in self.tiles])
+        return self.with_tile(x, y, OccupiedSpace(actor))
 
     def with_door(self, x, y, exit_x, exit_y):
-        door = Tile(self.x + x, self.y + y, DoorSpace(exit_x, exit_y))
-        return AreaBuilder(self.x, self.y, [door if door.enclosed_by(tile) else tile for tile in self.tiles])
+        return self.with_tile(x, y, DoorSpace(exit_x, exit_y))
+
+    def with_ledge(self, x, y):
+        return self.with_tile(x, y, LedgeSpace(OpenSpace()))
+
+    def with_tile(self, x, y, space):
+        new_tile = Tile(self.x + x, self.y + y, space)
+        return AreaBuilder(self.x, self.y, [new_tile if new_tile.enclosed_by(tile) else tile for tile in self.tiles])
 
     def rectangle(self, width, height):
         open_space = OpenSpace()

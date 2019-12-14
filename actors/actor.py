@@ -1,6 +1,6 @@
 class Actor:
 
-    def __init__(self, engine, key="@", area_listener=None):
+    def __init__(self, engine, key="p", area_listener=None):
         self.key = key
         self.engine = engine
         self.area_listener = area_listener

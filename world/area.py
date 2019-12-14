@@ -28,3 +28,7 @@ class Area:
     def print_to(self, media):
         return media.print_area(self.sub_areas)
 
+    def __str__(self):
+        return "Area (%d sub areas)" % len(self.sub_areas)
+
+

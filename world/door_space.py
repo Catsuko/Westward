@@ -14,5 +14,8 @@ class DoorSpace:
     def update(self, tile, root):
         return root
 
+    def with_space(self, space):
+        return space
+
     def print_to(self, x, y, media):
-        return media.with_character(x, y, '_')
+        return media.with_character(x, y, 'D')
