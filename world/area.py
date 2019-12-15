@@ -1,5 +1,4 @@
 from functools import reduce
-
 from world.blocked_space import BlockedSpace
 from world.tile import Tile
 

@@ -1,4 +1,5 @@
 from world.area import Area
+from world.blocked_space import BlockedSpace
 from world.ledge_space import LedgeSpace
 from world.occupied_space import OccupiedSpace
 from world.open_space import OpenSpace
@@ -21,6 +22,9 @@ class AreaBuilder:
 
     def with_ledge(self, x, y, allowed_direction=(0, -1)):
         return self.with_tile(x, y, LedgeSpace(allowed_direction))
+
+    def with_wall(self, x, y):
+        return self.with_tile(x, y, BlockedSpace())
 
     def with_tile(self, x, y, space):
         new_tile = Tile(self.x + x, self.y + y, space)
