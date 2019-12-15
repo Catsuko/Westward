@@ -13,15 +13,21 @@ class ConsoleView:
         return reduce(lambda view, tile: tile.print_to(view), tiles, self)
 
     def with_open_space(self, x, y):
-        return self.with_character(x, y, ".")
+        return self.__with_character(x, y, ".")
 
     def with_wall(self, x, y):
-        return self.with_character(x, y, "#")
+        return self.__with_character(x, y, "#")
 
     def with_actor(self, x, y, key):
-        return self.with_character(x, y, key)
+        return self.__with_character(x, y, key)
 
-    def with_character(self, x, y, character):
+    def with_ledge(self, x, y):
+        return self.__with_character(x, y, "_")
+
+    def with_door(self, x, y):
+        return self.__with_character(x, y, "D")
+
+    def __with_character(self, x, y, character):
         rows = self.contents.split("\n")
         width = len(rows[0])
         height = len(rows)

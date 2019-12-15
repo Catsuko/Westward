@@ -18,4 +18,4 @@ class DoorSpace:
         return space
 
     def print_to(self, x, y, media):
-        return media.with_character(x, y, 'D')
+        return media.with_door(x, y)

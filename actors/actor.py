@@ -15,4 +15,4 @@ class Actor:
             self.area_listener(area)
 
     def print_to(self, x, y, media):
-        return media.with_character(x, y, self.key)
+        return media.with_actor(x, y, self.key)
