@@ -6,9 +6,11 @@ class ConsoleView:
     def __init__(self, contents=""):
         self.contents = contents
 
-    def print_area(self, tiles):
-        impression = reduce(lambda m, t: t.print_to(m), tiles, self)
-        return impression
+    def print_area(self, area):
+        print(area.print_to(self))
+
+    def with_tiles(self, tiles):
+        return reduce(lambda view, tile: tile.print_to(view), tiles, self)
 
     def with_open_space(self, x, y):
         return self.with_character(x, y, ".")

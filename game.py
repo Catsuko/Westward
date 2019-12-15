@@ -20,9 +20,9 @@ area_two = AreaBuilder().starting_from(10, 0)\
                         .with_actor(Actor(RandomEngine(), "n"), 2, 2)\
                         .to_area()
 area = Area([area_one, area_two])
+view = ConsoleView()
 
 while True:
     # TODO: How to print only a portion of the world?
-    # TODO: Move print back into ConsoleView
-    print(area.print_to(ConsoleView()))
+    view.print_area(area)
     area = area.update(area)

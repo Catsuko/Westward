@@ -26,7 +26,7 @@ class Area:
         return all([sub_area.enclosed_by(area) for sub_area in self.sub_areas])
 
     def print_to(self, media):
-        return media.print_area(self.sub_areas)
+        return media.with_tiles(self.sub_areas)
 
     def __str__(self):
         return "Area (%d sub areas)" % len(self.sub_areas)
