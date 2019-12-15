@@ -13,8 +13,5 @@ class OccupiedSpace:
     def update(self, tile, root):
         return self.occupant.act(tile, root)
 
-    def with_space(self, space):
-        return space
-
     def print_to(self, x, y, media):
         return self.occupant.print_to(x, y, media)

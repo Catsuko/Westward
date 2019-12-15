@@ -19,8 +19,8 @@ class AreaBuilder:
     def with_door(self, x, y, exit_x, exit_y):
         return self.with_tile(x, y, DoorSpace(exit_x, exit_y))
 
-    def with_ledge(self, x, y):
-        return self.with_tile(x, y, LedgeSpace(OpenSpace()))
+    def with_ledge(self, x, y, allowed_direction=(0, -1)):
+        return self.with_tile(x, y, LedgeSpace(allowed_direction))
 
     def with_tile(self, x, y, space):
         new_tile = Tile(self.x + x, self.y + y, space)

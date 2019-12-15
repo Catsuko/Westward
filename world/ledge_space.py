@@ -1,21 +1,18 @@
 class LedgeSpace:
 
-    def __init__(self, space):
-        self.space = space
+    def __init__(self, allowed_direction):
+        self.allowed_direction = allowed_direction
 
     def enter(self, actor, origin, tile, root):
-        blocked = origin.above(tile)
-        return root.with_tile(origin) if blocked else self.space.enter(actor, origin, tile, root)
+        move = origin.to(tile)
+        allowed = move == self.allowed_direction
+        return tile.neighbour(move[0], move[1], root).enter(actor, origin, root) if allowed else root.with_tile(origin)
 
     def leave(self, actor, tile, root):
-        return self.space.leave(actor, tile, root)
+        return root
 
     def update(self, tile, root):
-        return self.space.update(tile, root)
-
-    def with_space(self, space):
-        return LedgeSpace(space)
+        return root
 
     def print_to(self, x, y, media):
         return media.with_ledge(x, y)
-
