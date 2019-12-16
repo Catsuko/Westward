@@ -1,6 +1,3 @@
-from functools import reduce
-
-
 class ConsoleView:
 
     def __init__(self, contents=""):
@@ -8,9 +5,6 @@ class ConsoleView:
 
     def print_area(self, area):
         print(area.print_to(self))
-
-    def with_tiles(self, tiles):
-        return reduce(lambda view, tile: tile.print_to(view), tiles, self)
 
     def with_open_space(self, x, y):
         return self.__with_character(x, y, ".")
