@@ -3,8 +3,11 @@ class ConsoleView:
     def __init__(self, contents=""):
         self.contents = contents
 
-    def print_area(self, area):
-        print(area.print_to(self))
+    def render(self):
+        print(self)
+
+    def with_area(self, area):
+        return area.print_to(self)
 
     def with_open_space(self, x, y):
         return self.__with_character(x, y, ".")
