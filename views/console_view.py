@@ -4,7 +4,7 @@ class ConsoleView:
         self.contents = contents
 
     def render(self):
-        print(self)
+        print("\n%s\n" % self)
 
     def with_area(self, area):
         return area.print_to(self)

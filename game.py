@@ -1,15 +1,15 @@
+from actors.keyboard_engine import KeyboardEngine
 from actors.random_engine import RandomEngine
 from views.actor_camera import ActorCamera
 from views.point_camera import PointCamera
 from world.area import Area
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
-from actors.input_engine import InputEngine
 from views.console_view import ConsoleView
 from world.rendered_area import RenderedArea
 
 player_key = 'p'
-player = Actor(InputEngine({'w': (0, -1), 's': (0, 1), 'a': (-1, 0), 'd': (1, 0)}), player_key)
+player = Actor(KeyboardEngine({'w': (0, -1), 's': (0, 1), 'a': (-1, 0), 'd': (1, 0)}), player_key)
 area_one = AreaBuilder().rectangle(5, 5)\
                     .with_actor(player, 2, 0)\
                     .with_door(4, 0, 11, 0)\
