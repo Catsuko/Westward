@@ -1,6 +1,6 @@
 class ConsoleView:
 
-    def __init__(self, contents=""):
+    def __init__(self, contents={}):
         self.contents = contents
 
     def render(self):
@@ -13,10 +13,10 @@ class ConsoleView:
         return self.__with_character(x, y, ".")
 
     def with_wall(self, x, y):
-        return self.__with_character(x, y, "#")
+        return self.__with_character(x, y, "T")
 
     def with_actor(self, x, y, key):
-        return self.__with_character(x, y, key)
+        return self.__with_character(x, y, key[0])
 
     def with_ledge(self, x, y):
         return self.__with_character(x, y, "_")
@@ -25,13 +25,21 @@ class ConsoleView:
         return self.__with_character(x, y, "D")
 
     def __with_character(self, x, y, character):
-        rows = self.contents.split("\n")
-        width = len(rows[0])
-        height = len(rows)
-        rows.extend([" " for i in range(max((y-height)+1, 0))])
-        rows = [row + (" " * max(x - width, 0)) for row in rows]
-        rows[y] = (rows[y][:x] + character + rows[y][x+1:])
-        return ConsoleView("\n".join(rows))
+        next_contents = self.contents.copy()
+        next_contents[(x, y)] = character
+        return ConsoleView(next_contents)
 
     def __str__(self):
-        return '\n'.join([s.lstrip() for s in self.contents.split('\n')])
+        x_coords = [point[0] for point in self.contents.keys()]
+        y_coords = [point[1] for point in self.contents.keys()]
+        x_min = min(x_coords)
+        x_max = max(x_coords)
+        y_min = min(y_coords)
+        y_max = max(y_coords)
+        contents_str = ''
+        for y in range(y_min, y_max + 1):
+            for x in range(x_min, x_max + 1):
+                contents_str = contents_str + (self.contents[(x, y)] if (x, y) in self.contents else ' ')
+            contents_str = contents_str + '\n'
+        return contents_str
+

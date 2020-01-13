@@ -14,5 +14,8 @@ class LedgeSpace:
     def update(self, tile, root):
         return root
 
+    def update_actor(self, actor, tile, root):
+        return root
+
     def print_to(self, x, y, media):
         return media.with_ledge(x, y)

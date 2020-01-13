@@ -11,6 +11,9 @@ class Area:
     def update(self, root=None):
         return reduce(lambda root_area, sub_area: sub_area.update(root_area), self.sub_areas, root or self)
 
+    def update_actor(self, actor, root=None):
+        return reduce(lambda root_area, sub_area: sub_area.update_actor(actor, root_area), self.sub_areas, root or self)
+
     def with_tile(self, tile):
         return Area([area.with_tile(tile) if tile.enclosed_by(area) else area for area in self.sub_areas])
 

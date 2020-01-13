@@ -8,6 +8,9 @@ class Tile:
     def update(self, root):
         return self.space.update(self, root)
 
+    def update_actor(self, actor, root):
+        return self.space.update_actor(actor, self, root)
+
     def with_tile(self, tile):
         return tile if tile.surrounds(self.x, self.y) else self
 
@@ -23,18 +26,18 @@ class Tile:
     def print_to(self, media):
         return self.space.print_to(self.x, self.y, media)
 
-    def enter(self, actor, origin, area):
-        return self.space.enter(actor, origin, self, area)
+    def enter(self, actor, origin, root):
+        return self.space.enter(actor, origin, self, root)
 
-    def leave(self, actor, area):
-        return self.space.leave(actor, self, area)
+    def leave(self, actor, root):
+        return self.space.leave(actor, self, root)
 
     def to(self, other_tile):
         from_dir = other_tile.direction_from(self.x, self.y)
         return -from_dir[0], -from_dir[1]
 
     def direction_from(self, x, y):
-        return x - self.x, y - self.y
+        return min(max(x - self.x, -1), 1), min(max(-1, y - self.y), 1)
 
     def neighbour(self, x_offset, y_offset, root):
         return root.tile(self.x + x_offset, self.y + y_offset)

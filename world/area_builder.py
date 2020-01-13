@@ -5,6 +5,7 @@ from world.occupied_space import OccupiedSpace
 from world.open_space import OpenSpace
 from world.tile import Tile
 from world.door_space import DoorSpace
+from functools import reduce
 
 
 class AreaBuilder:
@@ -27,16 +28,26 @@ class AreaBuilder:
         return self.with_tile(x, y, BlockedSpace())
 
     def with_tile(self, x, y, space):
-        new_tile = Tile(self.x + x, self.y + y, space)
-        return AreaBuilder(self.x, self.y, [new_tile if new_tile.enclosed_by(tile) else tile for tile in self.tiles])
+        return AreaBuilder(self.x, self.y, self.__tiles_with(self.__tile(x, y, space)))
 
     def rectangle(self, width, height):
         open_space = OpenSpace()
-        return AreaBuilder(self.x, self.y, [Tile(x + self.x, y + self.y, open_space) for x in range(width) for y in range(height)])
+        points = [(x, y) for x in range(width) for y in range(height)]
+        return reduce(lambda builder, point: builder.with_tile(point[0], point[1], open_space), points, self)
 
-    def starting_from(self, x, y):
+    def reposition(self, x, y):
         return AreaBuilder(x, y, self.tiles)
+
+    def nudge(self, x_offset, y_offset):
+        return AreaBuilder(self.x + x_offset, self.y + y_offset, self.tiles)
 
     def to_area(self):
         return Area(self.tiles)
+
+    def __tiles_with(self, new_tile):
+        is_new = any([new_tile.enclosed_by(tile) for tile in self.tiles])
+        return [new_tile if new_tile.enclosed_by(tile) else tile for tile in self.tiles] if is_new else self.tiles + [new_tile]
+
+    def __tile(self, x, y, space):
+        return Tile(x + self.x, y + self.y, space)
 

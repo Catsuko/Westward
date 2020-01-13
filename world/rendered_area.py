@@ -8,6 +8,9 @@ class RenderedArea:
         self.media.with_area(self.area).render()
         return RenderedArea(self.area.update(root), self.media)
 
+    def update_actor(self, actor, root):
+        return self.area.update_actor(actor, root)
+
     def with_tile(self, tile):
         return RenderedArea(self.area.with_tile(tile), self.media)
 
