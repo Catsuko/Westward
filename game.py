@@ -1,4 +1,6 @@
 import uuid
+
+from actors.keyboard_driven_action import KeyboardDrivenAction
 from actors.null_action import NullAction
 from actors.projectile_move_action import ProjectileMoveAction
 from actors.stdin_driven_action import StdinDrivenAction
@@ -26,7 +28,7 @@ from world.rendered_area import RenderedArea
 # TODO: Actor builder to simplify player\npc creation
 # TODO: Area that maintains relative position of its sub-areas so it can move around while actors move inside it.
 player_key = 'p'
-input_action = StdinDrivenAction({
+input_action = KeyboardDrivenAction({
     'w': MoveAction(0, -1), 's': MoveAction(0, 1), 'a': MoveAction(-1, 0), 'd': MoveAction(1, 0),
     'i': UseAction(0, -1), 'k': UseAction(0, 1), 'j': UseAction(-1, 0), 'l': UseAction(1, 0)
 })
