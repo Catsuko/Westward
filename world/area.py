@@ -21,6 +21,9 @@ class Area:
         out_of_bounds = Tile(x, y, BlockedSpace())
         return next((sub_area.tile(x, y) for sub_area in self.sub_areas if sub_area.surrounds(x, y)), out_of_bounds)
 
+    def find(self, tile):
+        return next((sub_area.find(tile) for sub_area in self.sub_areas if sub_area.enclosed_by(tile)), tile)
+
     def surrounds(self, x, y):
         return any([sub_area.surrounds(x, y) for sub_area in self.sub_areas])
 

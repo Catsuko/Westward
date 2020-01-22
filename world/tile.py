@@ -14,7 +14,12 @@ class Tile:
     def with_tile(self, tile):
         return tile if tile.surrounds(self.x, self.y) else self
 
+    # TODO: Rethink tile and find methods, surely they can be refactored if we think more about how to
+    #       retrieve a particular tile from an area.
     def tile(self, x, y):
+        return self
+
+    def find(self, tile):
         return self
 
     def surrounds(self, x, y):

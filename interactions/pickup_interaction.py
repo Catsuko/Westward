@@ -4,4 +4,4 @@ class PickupInteraction:
         self.item = item
 
     def between(self, initiator, origin, receiver, destination, root):
-        return initiator.pick_up(self.item, origin, root)
+        return origin.enter(initiator.pick_up(self.item), origin, root)
