@@ -1,5 +1,4 @@
 import uuid
-
 from actors.actor_target import ActorTarget
 from actors.keyboard_driven_action import KeyboardDrivenAction
 from actors.projectile_move_action import ProjectileMoveAction
@@ -12,10 +11,10 @@ from items.gun import Gun
 from views.console_view import ConsoleView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
-
-# TODO: Actor builder to simplify player\npc creation
-# TODO: Area that maintains relative position of its sub-areas so it can move around while actors move inside it.
 from world.rendered_area import RenderedArea
+
+# TODO: Plan how damage interactions will work. How will the growing number of specific interactions be managed?
+# TODO: Plan how a number of scorpions might ambush the player after they set foot in a particular area.
 
 player_key = 'p'
 input_action = KeyboardDrivenAction({
