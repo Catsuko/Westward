@@ -1,4 +1,4 @@
 class AcceptInitiatorInteraction:
 
     def between(self, initiator, origin, receiver, destination, root):
-        return destination.leave(receiver, root).find(destination).enter(initiator, origin, root)
+        return destination.find_in(destination.leave(receiver, root)).enter(initiator, origin, root)
