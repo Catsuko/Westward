@@ -27,9 +27,8 @@ class Actor:
     def identifies_with(self, key):
         return self.key == key
 
-    # TODO: Refactor into an equality override.
-    def matches(self, other_actor):
-        return other_actor.identifies_with(self.key)
+    def __eq__(self, other):
+        return isinstance(other, Actor) and other.identifies_with(self.key)
 
     def __str__(self):
         return "Actor %s (Inventory: %d)" % (self.key, len(self.inventory))

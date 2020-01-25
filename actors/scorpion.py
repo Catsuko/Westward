@@ -30,5 +30,8 @@ class Scorpion:
     def __alternate_wait(self):
         return Scorpion(self.target, self.movement, not self.waiting)
 
+    def __eq__(self, other):
+        return isinstance(other, Scorpion)
+
     def __str__(self):
         return "Scorpion"
