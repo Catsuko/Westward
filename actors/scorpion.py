@@ -16,7 +16,7 @@ class Scorpion:
             return self.movement.redirect(*target_direction).on(self.__alternate_wait(), tile, root)
 
     def interact_with(self, other, origin, tile, root):
-        return other.receive(self, origin, tile, root)
+        return root
 
     def receive(self, other, origin, tile, root):
         return root.with_tile(origin)

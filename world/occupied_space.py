@@ -5,7 +5,7 @@ class OccupiedSpace:
 
     def enter(self, actor, origin, tile, root):
         re_entry = actor == self.occupant
-        return self.__replace(actor, tile, root) if re_entry else actor.interact_with(self.occupant, origin, tile, root)
+        return self.__replace(actor, tile, root) if re_entry else self.__interaction(actor, origin, tile, root)
 
     def leave(self, actor, tile, root):
         from .open_space import OpenSpace
@@ -22,3 +22,6 @@ class OccupiedSpace:
 
     def __replace(self, occupant, tile, root):
         return root.with_tile(tile.with_space(OccupiedSpace(occupant)))
+
+    def __interaction(self, other, origin, tile, root):
+        return other.interact_with(self.occupant, origin, tile, self.occupant.receive(other, origin, tile, root))

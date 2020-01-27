@@ -9,7 +9,7 @@ class Actor:
         return self.action.on(self, tile, root)
     
     def interact_with(self, other, origin, tile, root):
-        return other.receive(self, origin, tile, root)
+        return root
 
     def receive(self, other, origin, tile, root):
         return root.with_tile(origin)
