@@ -9,8 +9,8 @@ class Actor:
     def act(self, tile, root):
         return self.action.on(self, tile, root)
     
-    def interact_with(self, actor, origin, tile, root):
-        return self.interaction.between(actor, origin, self, tile, root)
+    def interact_with(self, other, origin, tile, root):
+        return self.interaction.between(self, origin, other, tile, root)
 
     def pick_up(self, item):
         return Actor(self.action, self.interaction, self.key, self.inventory + [item])

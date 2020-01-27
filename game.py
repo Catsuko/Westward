@@ -23,8 +23,7 @@ input_action = KeyboardDrivenAction({
 })
 scorpion = Scorpion(ActorTarget(player_key), MoveAction())
 return_interaction = ReturnInitiatorInteraction()
-accept_interaction = AcceptInitiatorInteraction()
-gun = Gun(lambda aim_dir: Actor(ProjectileMoveAction(aim_dir[0], aim_dir[1]), accept_interaction, "*%s" % uuid.uuid1()))
+gun = Gun(lambda aim_dir: Actor(ProjectileMoveAction(aim_dir[0], aim_dir[1]), return_interaction, "*%s" % uuid.uuid1()))
 player = Actor(input_action, return_interaction, player_key, [gun])
 area = RenderedArea(AreaBuilder().rectangle(16, 8).with_actor(player, 4, 4).with_actor(scorpion, 0, 0).to_area(), ConsoleView())
 while True:
