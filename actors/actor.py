@@ -1,8 +1,7 @@
 class Actor:
 
-    def __init__(self, action, interaction, key, inventory=[]):
+    def __init__(self, action, key, inventory=[]):
         self.action = action
-        self.interaction = interaction
         self.key = key
         self.inventory = inventory
 
@@ -10,13 +9,13 @@ class Actor:
         return self.action.on(self, tile, root)
     
     def interact_with(self, other, origin, tile, root):
-        return self.interaction.between(self, origin, other, tile, root)
+        return other.receive(self, origin, tile, root)
+
+    def receive(self, other, origin, tile, root):
+        return root.with_tile(origin)
 
     def pick_up(self, item):
-        return Actor(self.action, self.interaction, self.key, self.inventory + [item])
-
-    def with_interaction(self, interaction):
-        return Actor(self.action, interaction, self.key, self.inventory)
+        return Actor(self.action, self.key, self.inventory + [item])
 
     def use(self, tile, target, root):
         return self.inventory[0].use(self, tile, target, root) if len(self.inventory) > 0 else root
