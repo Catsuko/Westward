@@ -1,9 +1,9 @@
 class Actor:
 
-    def __init__(self, action, key, inventory=[]):
+    def __init__(self, action, key, components):
         self.action = action
         self.key = key
-        self.inventory = inventory
+        self.components = components
 
     def act(self, tile, root):
         return self.action.on(self, tile, root)
@@ -14,11 +14,11 @@ class Actor:
     def receive(self, other, origin, tile, root):
         return root.with_tile(origin)
 
-    def pick_up(self, item):
-        return Actor(self.action, self.key, self.inventory + [item])
+    def replace(self, old, new, tile, root):
+        return tile.enter(Actor(self.action, self.key, self.components.replace(old, new)), tile, root)
 
-    def use(self, tile, target, root):
-        return self.inventory[0].use(self, tile, target, root) if len(self.inventory) > 0 else root
+    def attempt(self, action, root, *args):
+        return self.components.attempt(action, self, root, *args)
 
     def print_to(self, x, y, media):
         return media.with_actor(x, y, self.key)

@@ -1,5 +1,8 @@
 import uuid
 from actors.actor_target import ActorTarget
+from actors.components.components import Components
+from actors.components.health import Health
+from actors.components.inventory import Inventory
 from actors.keyboard_driven_action import KeyboardDrivenAction
 from actors.projectile import Projectile
 from actors.move_action import MoveAction
@@ -18,7 +21,8 @@ input_action = KeyboardDrivenAction({
 })
 scorpion = Scorpion(ActorTarget(player_key), MoveAction())
 gun = Gun(lambda aim_dir: Projectile(aim_dir, "*%s" % uuid.uuid1()))
-player = Actor(input_action, player_key, [gun])
+inventory = Inventory(frozenset([gun]))
+player = Actor(input_action, player_key, Components(frozenset([inventory, Health(3, 3)])))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
                     .with_actor(player, 4, 4)
                     .with_actor(scorpion, 0, 0).to_area(), ConsoleView())

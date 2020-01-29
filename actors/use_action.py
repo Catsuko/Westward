@@ -5,4 +5,6 @@ class UseAction:
         self.y_dir = y_dir
 
     def on(self, actor, tile, root):
-        return actor.use(tile, tile.neighbour(self.x_dir, self.y_dir, root), root)
+        target = tile.neighbour(self.x_dir, self.y_dir, root)
+        return actor.attempt("use_primary", root, actor, target, tile)
+

@@ -5,6 +5,8 @@ class Scorpion:
         self.movement = movement
         self.waiting = waiting
 
+    # TODO: Fix bug where scorpion is not waiting properly when next to the player.
+    #       Consequence of the receive method overriding this instance of the scorp?
     def act(self, tile, root):
         if self.waiting:
             return tile.enter(self.__alternate_wait(), tile, root)
@@ -16,7 +18,7 @@ class Scorpion:
             return self.movement.redirect(*target_direction).on(self.__alternate_wait(), tile, root)
 
     def interact_with(self, other, origin, tile, root):
-        return root
+        return other.attempt("damage", root, tile)
 
     def receive(self, other, origin, tile, root):
         return root.with_tile(origin)
