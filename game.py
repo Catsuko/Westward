@@ -19,7 +19,7 @@ input_action = KeyboardDrivenAction({
     'w': MoveAction(0, -1), 's': MoveAction(0, 1), 'a': MoveAction(-1, 0), 'd': MoveAction(1, 0),
     'i': UseAction(0, -1), 'k': UseAction(0, 1), 'j': UseAction(-1, 0), 'l': UseAction(1, 0)
 })
-scorpion = Scorpion(ActorTarget(player_key), MoveAction())
+scorpion = Scorpion(ActorTarget(player_key), MoveAction(), Components(frozenset([Health(1, 1)])))
 gun = Gun(lambda aim_dir: Projectile(aim_dir, "*%s" % uuid.uuid1()))
 inventory = Inventory(frozenset([gun]))
 player = Actor(input_action, player_key, Components(frozenset([inventory, Health(3, 3)])))

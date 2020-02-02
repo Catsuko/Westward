@@ -10,9 +10,12 @@ class Projectile:
         origin = tile.neighbour(0, 0, root_without_projectile)
         return destination.enter(self, origin, root_without_projectile)
 
+    def attempt(self, action, root, *args):
+        return root
+
     # TODO: Damage the other actor!
     def interact_with(self, other, origin, tile, root):
-        return root
+        return origin.leave(self, other.attempt("damage", root, tile))
 
     def receive(self, other, origin, tile, root):
         return tile.find_in(tile.leave(self, root)).enter(other, origin, root)

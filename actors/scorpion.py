@@ -1,12 +1,13 @@
 class Scorpion:
 
-    def __init__(self, target, movement, waiting=True):
+    def __init__(self, target, movement, components, waiting=True):
         self.target = target
         self.movement = movement
+        self.components = components
         self.waiting = waiting
 
     def act(self, tile, root):
-        wait_flipped_scorpion = Scorpion(self.target, self.movement, not self.waiting)
+        wait_flipped_scorpion = Scorpion(self.target, self.movement, self.components, not self.waiting)
         root = tile.enter(wait_flipped_scorpion, tile, root)
         if not self.waiting:
             target = self.target.with_area(root)
@@ -18,6 +19,13 @@ class Scorpion:
 
     def interact_with(self, other, origin, tile, root):
         return other.attempt("damage", root, tile)
+
+    def replace(self, old, new, tile, root):
+        updated = Scorpion(self.target, self.movement, self.components.replace(old, new), self.waiting)
+        return tile.enter(updated, tile, root)
+
+    def attempt(self, action, root, *args):
+        return self.components.attempt(action, self, root, *args)
 
     def receive(self, other, origin, tile, root):
         return root.with_tile(origin)
