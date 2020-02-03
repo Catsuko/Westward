@@ -4,7 +4,7 @@ import time
 
 class KeyboardDrivenAction:
 
-    def __init__(self, key_map, timeout_seconds=2.0):
+    def __init__(self, key_map, timeout_seconds=1.0):
         self.key_map = key_map
         self.timeout_seconds = timeout_seconds
 

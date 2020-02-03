@@ -13,7 +13,6 @@ class Projectile:
     def attempt(self, action, root, *args):
         return root
 
-    # TODO: Damage the other actor!
     def interact_with(self, other, origin, tile, root):
         return origin.leave(self, other.attempt("damage", root, tile))
 
