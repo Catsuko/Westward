@@ -16,7 +16,9 @@ class KeyboardDrivenAction:
             time.sleep(0.001)
             released_key = next((key for key in pressed_keys if not keyboard.is_pressed(key)), None)
             pressed_keys = [key for key in self.key_map.keys() if keyboard.is_pressed(key)]
-        return root if released_key is None else self.key_map[released_key].on(actor, tile, root)
+        if released_key is not None:
+            root, action = self.key_map[released_key].on(actor, tile, root)
+        return root, self
 
     def __has_time_remaining(self, start_time):
         return time.time() - start_time < self.timeout_seconds

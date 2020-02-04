@@ -7,4 +7,4 @@ class StdinDrivenAction:
         key = None
         while key not in self.key_map.keys():
             key = input()
-        return self.key_map[key].on(actor, tile, root)
+        return self.key_map[key].on(actor, tile, root), self

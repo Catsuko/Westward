@@ -6,5 +6,5 @@ class UseAction:
 
     def on(self, actor, tile, root):
         target = tile.neighbour(self.x_dir, self.y_dir, root)
-        return actor.attempt("use_primary", root, target, tile)
+        return actor.attempt("use_primary", root, target, tile), self
 
