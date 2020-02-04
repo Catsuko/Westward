@@ -3,11 +3,11 @@ from actors.actor_target import ActorTarget
 from actors.components.components import Components
 from actors.components.health import Health
 from actors.components.inventory import Inventory
-from actors.keyboard_driven_action import KeyboardDrivenAction
+from actors.actions.keyboard_driven_action import KeyboardDrivenAction
 from actors.projectile import Projectile
-from actors.move_action import MoveAction
+from actors.actions.move_action import MoveAction
 from actors.scorpion import Scorpion
-from actors.use_action import UseAction
+from actors.actions.use_action import UseAction
 from items.gun import Gun
 from views.console_view import ConsoleView
 from world.area_builder import AreaBuilder
