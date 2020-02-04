@@ -8,7 +8,7 @@ class Scorpion:
 
     def act(self, tile, root):
         wait_flipped_scorpion = Scorpion(self.target, self.movement, self.components, not self.waiting)
-        root = tile.enter(wait_flipped_scorpion, tile, root)
+        root = tile.replace_actor(wait_flipped_scorpion, root)
         if not self.waiting:
             target = self.target.with_area(root)
             target_direction = target.direction_to(tile)
@@ -22,7 +22,7 @@ class Scorpion:
 
     def replace(self, old, new, tile, root):
         updated = Scorpion(self.target, self.movement, self.components.replace(old, new), self.waiting)
-        return tile.enter(updated, tile, root)
+        return tile.replace_actor(updated, root)
 
     def attempt(self, action, root, *args):
         return self.components.attempt(action, self, root, *args)

@@ -15,7 +15,7 @@ class Actor:
         return root.with_tile(origin)
 
     def replace(self, old, new, tile, root):
-        return tile.enter(Actor(self.action, self.key, self.components.replace(old, new)), tile, root)
+        return tile.replace_actor(Actor(self.action, self.key, self.components.replace(old, new)), root)
 
     def attempt(self, action, root, *args):
         return self.components.attempt(action, self, root, *args)

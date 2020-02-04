@@ -4,8 +4,7 @@ class OccupiedSpace:
         self.occupant = occupant
 
     def enter(self, actor, origin, tile, root):
-        re_entry = actor == self.occupant
-        return self.__replace(actor, tile, root) if re_entry else self.__interaction(actor, origin, tile, root)
+        return root if actor == self.occupant else self.__interaction(actor, origin, tile, root)
 
     def leave(self, actor, tile, root):
         from .open_space import OpenSpace
@@ -16,6 +15,9 @@ class OccupiedSpace:
 
     def update_actor(self, actor, tile, root):
         return self.occupant.act(tile, root) if actor == self.occupant else root
+
+    def replace_actor(self, actor, tile, root):
+        return root.with_tile(tile.with_space(OccupiedSpace(actor))) if actor == self.occupant else root
 
     def print_to(self, x, y, media):
         return self.occupant.print_to(x, y, media)

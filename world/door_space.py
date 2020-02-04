@@ -17,5 +17,8 @@ class DoorSpace:
     def update_actor(self, actor, tile, root):
         return root
 
+    def replace_actor(self, actor, tile, root):
+        return root
+
     def print_to(self, x, y, media):
         return media.with_door(x, y)

@@ -11,6 +11,9 @@ class RenderedArea:
     def update_actor(self, actor, root):
         return self.area.update_actor(actor, root)
 
+    def replace_actor(self, actor, root):
+        return self.area.replace_actor(actor, root)
+
     def with_tile(self, tile):
         return RenderedArea(self.area.with_tile(tile), self.media)
 
