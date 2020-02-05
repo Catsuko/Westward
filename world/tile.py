@@ -17,6 +17,7 @@ class Tile(Bounds):
     def replace_actor(self, actor, root):
         return self.space.replace_actor(actor, self, root)
 
+    # TODO: How can we refactor tile and find_in, these methods feel weird!
     def tile(self, x, y):
         return self
 
@@ -39,8 +40,8 @@ class Tile(Bounds):
         return self.space.leave(actor, self, root)
 
     def to(self, other_tile):
-        from_dir = other_tile.direction_from(self.x, self.y)
-        return -from_dir[0], -from_dir[1]
+        x, y = other_tile.direction_from(self.x, self.y)
+        return -x, -y
 
     def direction_from(self, x, y):
         return min(max(x - self.x, -1), 1), min(max(-1, y - self.y), 1)

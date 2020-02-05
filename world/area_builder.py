@@ -33,7 +33,7 @@ class AreaBuilder:
     def rectangle(self, width, height):
         open_space = OpenSpace()
         points = [(x, y) for x in range(width) for y in range(height)]
-        return reduce(lambda builder, point: builder.with_tile(point[0], point[1], open_space), points, self)
+        return reduce(lambda builder, point: builder.with_tile(*point, open_space), points, self)
 
     def reposition(self, x, y):
         return AreaBuilder(x, y, self.tiles)

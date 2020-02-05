@@ -30,8 +30,8 @@ class ConsoleView:
         return ConsoleView(next_contents)
 
     def __str__(self):
-        x_coords = [point[0] for point in self.contents.keys()]
-        y_coords = [point[1] for point in self.contents.keys()]
+        x_coords = [x for x, _ in self.contents.keys()]
+        y_coords = [y for _, y in self.contents.keys()]
         x_min = min(x_coords)
         x_max = max(x_coords)
         y_min = min(y_coords)
