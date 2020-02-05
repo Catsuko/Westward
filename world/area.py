@@ -18,8 +18,8 @@ class Area(Bounds):
     def replace_actor(self, actor, root=None):
         return reduce(lambda root_area, area: area.replace_actor(actor, root_area), self.sub_areas, root or self)
 
-    def with_tile(self, tile):
-        return Area([area.with_tile(tile) if tile.enclosed_by(area) else area for area in self.sub_areas])
+    def with_area(self, area):
+        return self.__replace_area(area) if area in self.sub_areas else self.__replace_in_sub_area(area)
 
     def tile(self, x, y):
         out_of_bounds = Tile(x, y, BlockedSpace())
@@ -33,6 +33,12 @@ class Area(Bounds):
 
     def print_to(self, media):
         return reduce(lambda m, area: area.print_to(m), self.sub_areas, media)
+
+    def __replace_area(self, area):
+        return Area([area if area == sub_area else sub_area for sub_area in self.sub_areas])
+
+    def __replace_in_sub_area(self, area):
+        return next((self.with_area(sa.with_area(area)) for sa in self.sub_areas if area.enclosed_by(sa)), self)
 
     def __str__(self):
         return "Area (%d sub areas)" % len(self.sub_areas)

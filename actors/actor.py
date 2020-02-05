@@ -15,7 +15,7 @@ class Actor:
         return root.replace_actor(Actor(self.action, interaction, self.key, self.components))
 
     def receive(self, other, origin, tile, root):
-        return root.with_tile(origin)
+        return root.with_area(origin)
 
     def replace(self, old, new, tile, root):
         updated_components = self.components.replace(old, new)

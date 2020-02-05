@@ -17,9 +17,6 @@ class Tile(Bounds):
     def replace_actor(self, actor, root):
         return self.space.replace_actor(actor, self, root)
 
-    def with_tile(self, tile):
-        return tile if tile.surrounds(self.x, self.y) else self
-
     def tile(self, x, y):
         return self
 

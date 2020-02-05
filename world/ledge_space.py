@@ -6,7 +6,7 @@ class LedgeSpace:
     def enter(self, actor, origin, tile, root):
         move = origin.to(tile)
         allowed = move == self.allowed_direction
-        return tile.neighbour(move[0], move[1], root).enter(actor, origin, root) if allowed else root.with_tile(origin)
+        return tile.neighbour(*move, root).enter(actor, origin, root) if allowed else root.with_area(origin)
 
     def leave(self, actor, tile, root):
         return root

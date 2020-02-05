@@ -4,7 +4,7 @@ from .occupied_space import *
 class OpenSpace:
 
     def enter(self, actor, origin, tile, root):
-        return root.with_tile(tile.with_space(OccupiedSpace(actor)))
+        return root.with_area(tile.with_space(OccupiedSpace(actor)))
 
     def leave(self, actor, tile, root):
         return root
