@@ -1,4 +1,7 @@
-class RenderedArea:
+from world.bounds import Bounds
+
+
+class RenderedArea(Bounds):
 
     def __init__(self, area, media):
         self.area = area
@@ -23,8 +26,8 @@ class RenderedArea:
     def surrounds(self, x, y):
         return self.area.surrounds(x, y)
 
-    def enclosed_by(self, area):
-        return self.area.enclosed_by(area)
+    def enclosed_by(self, bounds):
+        return self.area.enclosed_by(bounds)
 
     def print_to(self, media):
         return self.area.print_to(media)

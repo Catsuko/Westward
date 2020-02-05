@@ -1,4 +1,7 @@
-class Tile:
+from world.bounds import Bounds
+
+
+class Tile(Bounds):
 
     def __init__(self, x, y, space):
         self.x = x
@@ -26,8 +29,8 @@ class Tile:
     def surrounds(self, x, y):
         return abs(x - self.x) < 1 and abs(y - self.y) < 1
 
-    def enclosed_by(self, area):
-        return area.surrounds(self.x, self.y)
+    def enclosed_by(self, bounds):
+        return bounds.surrounds(self.x, self.y)
 
     def print_to(self, media):
         return self.space.print_to(self.x, self.y, media)

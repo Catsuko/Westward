@@ -1,9 +1,10 @@
 from functools import reduce
 from world.blocked_space import BlockedSpace
+from world.bounds import Bounds
 from world.tile import Tile
 
 
-class Area:
+class Area(Bounds):
 
     def __init__(self, sub_areas=[]):
         self.sub_areas = sub_areas
@@ -27,8 +28,8 @@ class Area:
     def surrounds(self, x, y):
         return any([sub_area.surrounds(x, y) for sub_area in self.sub_areas])
 
-    def enclosed_by(self, area):
-        return all([sub_area.enclosed_by(area) for sub_area in self.sub_areas])
+    def enclosed_by(self, bounds):
+        return all([sub_area.enclosed_by(bounds) for sub_area in self.sub_areas])
 
     def print_to(self, media):
         return reduce(lambda m, area: area.print_to(m), self.sub_areas, media)
