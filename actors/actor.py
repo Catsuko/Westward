@@ -34,4 +34,4 @@ class Actor:
         return isinstance(other, Actor) and other.identifies_with(self.key)
 
     def __str__(self):
-        return "Actor %s (Inventory: %d)" % (self.key, len(self.inventory))
+        return "Actor %s" % self.key

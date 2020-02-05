@@ -11,3 +11,4 @@ class ChaseAction:
             y = 0
         root, action = self.movement.redirect(x, y).on(actor, tile, root)
         return root, ChaseAction(self.target, action)
+
