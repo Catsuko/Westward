@@ -16,6 +16,7 @@ from items.gun import Gun
 from views.console_view import ConsoleView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
+from world.effects.spawn_effect import SpawnEffect
 from world.rendered_area import RenderedArea
 
 player_key = 'p'
@@ -27,9 +28,10 @@ gun = Gun(lambda aim_dir: Projectile(aim_dir, "*%s" % uuid.uuid1()))
 inventory = Inventory(frozenset([gun]))
 scorpion_action = StaggeredAction(ChaseAction(ActorTarget(player_key), MoveAction()))
 scorpion = Actor(scorpion_action, DamageInteraction(), "s", Components(frozenset([Health(1, 1)])))
+spawn_effect = SpawnEffect(scorpion, [(0, 0), (5, 0)])
 player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
-                    .with_actor(player, 4, 4)
-                    .with_actor(scorpion, 0, 0).to_area(), ConsoleView())
+                    .with_actor(player, 4, 4).to_area(), ConsoleView())
+area = spawn_effect.affect(area)
 while True:
     area = area.update()

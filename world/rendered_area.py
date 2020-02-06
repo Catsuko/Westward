@@ -18,10 +18,10 @@ class RenderedArea(Bounds):
         return self.area.replace_actor(actor, root)
 
     def with_area(self, area):
-        return RenderedArea(self.with_area(area))
+        return RenderedArea(self.area.with_area(area), self.media)
 
     def tile(self, x, y):
-        return RenderedArea(self.area.tile(x, y), self.media)
+        return self.area.tile(x, y)
 
     def surrounds(self, x, y):
         return self.area.surrounds(x, y)
