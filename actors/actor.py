@@ -1,3 +1,6 @@
+import uuid
+
+
 class Actor:
 
     def __init__(self, action, interaction, key, components):
@@ -29,6 +32,9 @@ class Actor:
 
     def identifies_with(self, key):
         return self.key == key
+
+    def unique(self):
+        return Actor(self.action, self.interaction, self.key + str(uuid.uuid1()), self.components)
 
     def __eq__(self, other):
         return isinstance(other, Actor) and other.identifies_with(self.key)

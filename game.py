@@ -1,5 +1,3 @@
-import uuid
-
 from actors.actions.chase_action import ChaseAction
 from actors.actions.staggered_action import StaggeredAction
 from actors.actor_target import ActorTarget
@@ -24,11 +22,11 @@ input_action = KeyboardDrivenAction({
     'w': MoveAction(0, -1), 's': MoveAction(0, 1), 'a': MoveAction(-1, 0), 'd': MoveAction(1, 0),
     'i': UseAction(0, -1), 'k': UseAction(0, 1), 'j': UseAction(-1, 0), 'l': UseAction(1, 0)
 })
-gun = Gun(lambda aim_dir: Projectile(aim_dir, "*%s" % uuid.uuid1()))
+gun = Gun(lambda aim_dir: Projectile(aim_dir, "*"))
 inventory = Inventory(frozenset([gun]))
 scorpion_action = StaggeredAction(ChaseAction(ActorTarget(player_key), MoveAction()))
 scorpion = Actor(scorpion_action, DamageInteraction(), "s", Components(frozenset([Health(1, 1)])))
-spawn_effect = SpawnEffect(scorpion, [(0, 0), (5, 0)])
+spawn_effect = SpawnEffect(scorpion, [(0, 0), (5, 0), (7, 0), (8, 7)])
 player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
                     .with_actor(player, 4, 4).to_area(), ConsoleView())

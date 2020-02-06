@@ -1,6 +1,3 @@
-from functools import reduce
-
-
 class SpawnEffect:
 
     def __init__(self, actor, spawn_points):
@@ -10,5 +7,5 @@ class SpawnEffect:
     def affect(self, root):
         for pos in self.spawn_points:
             tile = root.tile(*pos)
-            root = tile.enter(self.actor, tile, root)
+            root = tile.enter(self.actor.unique(), tile, root)
         return root
