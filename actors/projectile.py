@@ -16,9 +16,10 @@ class Projectile:
     def interact_with(self, other, origin, tile, root):
         return origin.leave(self, other.attempt("damage", root, tile))
 
-    # TODO: Apply projectile effect when an enemy moves into the projectile!
     def receive(self, other, origin, tile, root):
-        return tile.find_in(tile.leave(self, root)).enter(other, origin, root)
+        root = tile.find_in(tile.leave(self, root)).enter(other, origin, root)
+        tile = tile.find_in(root)
+        return tile.enter(self, tile, root)
 
     def print_to(self, x, y, media):
         return media.with_actor(x, y, self.key)
