@@ -6,7 +6,7 @@ from actors.components.health import Health
 from actors.components.inventory import Inventory
 from actors.actions.keyboard_driven_action import KeyboardDrivenAction
 from actors.interactions.damage_interaction import DamageInteraction
-from actors.interactions.interaction_lookup import InteractionLookup
+from actors.interactions.mapped_interaction import MappedInteraction
 from actors.interactions.null_interaction import NullInteraction
 from actors.projectile import Projectile
 from actors.actions.move_action import MoveAction
@@ -26,7 +26,7 @@ input_action = KeyboardDrivenAction({
 gun = Gun(lambda aim_dir: Projectile(aim_dir, "*"))
 inventory = Inventory(frozenset([gun]))
 scorpion_action = StaggeredAction(ChaseAction(ActorTarget(player_key), MoveAction()))
-scorp_interaction = InteractionLookup({ 's': NullInteraction() }, DamageInteraction())
+scorp_interaction = MappedInteraction({'s': NullInteraction()}, DamageInteraction())
 scorpion = Actor(scorpion_action, scorp_interaction, "s", Components(frozenset([Health(1, 1)])))
 spawn_effect = SpawnEffect(scorpion, [(0, 0), (1, 0), (2, 0), (3, 0), (7, 0), (8, 7)])
 player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
