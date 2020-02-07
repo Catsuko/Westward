@@ -1,3 +1,4 @@
+# TODO: Rename to MappedInteraction
 class InteractionLookup:
 
     def __init__(self, lookup, default_interaction):
