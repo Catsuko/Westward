@@ -29,5 +29,14 @@ class RenderedArea(Bounds):
     def enclosed_by(self, bounds):
         return self.area.enclosed_by(bounds)
 
+    def with_effect(self, effect):
+        return RenderedArea(self.area.with_effect(effect), self.media)
+
+    def without_effect(self, effect):
+        return RenderedArea(self.area.without_effect(effect), self.media)
+
+    def replace_effect(self, old, new):
+        return RenderedArea(self.area.replace_effect(old, new), self.media)
+
     def print_to(self, media):
         return self.area.print_to(media)

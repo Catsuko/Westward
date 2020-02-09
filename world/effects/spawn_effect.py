@@ -4,8 +4,9 @@ class SpawnEffect:
         self.actor = actor
         self.spawn_points = spawn_points
 
-    def affect(self, root):
+    def affect(self, area):
         for pos in self.spawn_points:
-            tile = root.tile(*pos)
-            root = tile.enter(self.actor.unique(), tile, root)
-        return root
+            tile = area.tile(*pos)
+            area = tile.enter(self.actor.unique(), tile, area)
+        return area.without_effect(self)
+
