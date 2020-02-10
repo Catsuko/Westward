@@ -15,6 +15,7 @@ from items.gun import Gun
 from views.console_view import ConsoleView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
+from world.effects.death_trigger_effect import DeathTriggerEffect
 from world.effects.delayed_effect import DelayedEffect
 from world.effects.spawn_effect import SpawnEffect
 from world.rendered_area import RenderedArea
@@ -32,6 +33,7 @@ scorpion = Actor(scorpion_action, scorp_interaction, "s", Components(frozenset([
 player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
                     .with_actor(player, 4, 4).to_area(), ConsoleView())
-area = area.with_effect(DelayedEffect(SpawnEffect(scorpion, [(0, 0), (1, 0)]), 5))
+death_trigger = DeathTriggerEffect(SpawnEffect(scorpion, [(5, 0)]))
+area = area.with_effect(DelayedEffect(SpawnEffect(scorpion, [(0, 0), (1, 0)], death_trigger), 5))
 while True:
     area = area.update()
