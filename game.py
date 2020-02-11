@@ -17,6 +17,7 @@ from world.area_builder import AreaBuilder
 from actors.actor import Actor
 from world.effects.death_trigger_effect import DeathTriggerEffect
 from world.effects.delayed_effect import DelayedEffect
+from world.effects.enter_trigger_effect import EnterTriggerEffect
 from world.effects.spawn_effect import SpawnEffect
 from world.rendered_area import RenderedArea
 
@@ -32,8 +33,10 @@ scorp_interaction = MappedInteraction({'s': NullInteraction()}, DamageInteractio
 scorpion = Actor(scorpion_action, scorp_interaction, "s", Components(frozenset([Health(1, 1)])))
 player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
-                    .with_actor(player, 4, 4).to_area(), ConsoleView())
+                    .with_actor(player, 7, 7).to_area(), ConsoleView())
 death_trigger = DeathTriggerEffect(SpawnEffect(scorpion, [(5, 0)]))
-area = area.with_effect(DelayedEffect(SpawnEffect(scorpion, [(0, 0), (1, 0)], death_trigger), 5))
+spawn_effect = SpawnEffect(scorpion, [(0, 0), (1, 0)], death_trigger)
+enter_trigger = EnterTriggerEffect(spawn_effect, (7, 3), 2)
+area = area.with_effect(enter_trigger)
 while True:
     area = area.update()
