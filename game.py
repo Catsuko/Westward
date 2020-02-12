@@ -1,12 +1,9 @@
-from actors.actions.chase_action import ChaseAction
-from actors.actions.staggered_action import StaggeredAction
+from actors.actions.shoot_at_action import ShootAtAction
 from actors.actor_target import ActorTarget
 from actors.components.components import Components
 from actors.components.health import Health
 from actors.components.inventory import Inventory
 from actors.actions.keyboard_driven_action import KeyboardDrivenAction
-from actors.interactions.damage_interaction import DamageInteraction
-from actors.interactions.mapped_interaction import MappedInteraction
 from actors.interactions.null_interaction import NullInteraction
 from actors.projectile import Projectile
 from actors.actions.move_action import MoveAction
@@ -15,10 +12,6 @@ from items.gun import Gun
 from views.console_view import ConsoleView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
-from world.effects.death_trigger_effect import DeathTriggerEffect
-from world.effects.delayed_effect import DelayedEffect
-from world.effects.enter_trigger_effect import EnterTriggerEffect
-from world.effects.spawn_effect import SpawnEffect
 from world.rendered_area import RenderedArea
 
 player_key = 'p'
@@ -28,15 +21,11 @@ input_action = KeyboardDrivenAction({
 })
 gun = Gun(lambda aim_dir: Projectile(aim_dir, "*"))
 inventory = Inventory(frozenset([gun]))
-scorpion_action = StaggeredAction(ChaseAction(ActorTarget(player_key), MoveAction()))
-scorp_interaction = MappedInteraction({'s': NullInteraction()}, DamageInteraction())
-scorpion = Actor(scorpion_action, scorp_interaction, "s", Components(frozenset([Health(1, 1)])))
-player = Actor(input_action, NullInteraction(), player_key, Components(frozenset([inventory, Health(3, 3)])))
+player_target = ActorTarget(player_key)
+cowboy_components = Components(frozenset([inventory, Health(3, 3)]))
+bandit = Actor(ShootAtAction(player_target, UseAction()), NullInteraction(), "b", cowboy_components)
+player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
-                    .with_actor(player, 7, 7).to_area(), ConsoleView())
-death_trigger = DeathTriggerEffect(SpawnEffect(scorpion, [(5, 0)]))
-spawn_effect = SpawnEffect(scorpion, [(0, 0), (1, 0)], death_trigger)
-enter_trigger = EnterTriggerEffect(spawn_effect, (7, 3), 2)
-area = area.with_effect(enter_trigger)
+                    .with_actor(player, 7, 7).with_actor(bandit, 7, 0).to_area(), ConsoleView())
 while True:
     area = area.update()

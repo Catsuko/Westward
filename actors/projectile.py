@@ -19,7 +19,10 @@ class Projectile:
     def receive(self, other, origin, tile, root):
         root = tile.find_in(tile.leave(self, root)).enter(other, origin, root)
         tile = tile.find_in(root)
-        return tile.enter(self, tile, root)
+        return root if other.identifies_with(self.key) else tile.enter(self, tile, root)
+
+    def identifies_with(self, key):
+        return key is self.key
 
     def print_to(self, x, y, media):
         return media.with_actor(x, y, self.key)
