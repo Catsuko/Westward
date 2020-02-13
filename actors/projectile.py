@@ -1,3 +1,4 @@
+# TODO: Currently bullets fired downwards will collide with each other in a way that makes them appear frozen
 class Projectile:
 
     def __init__(self, velocity, key):
@@ -18,8 +19,7 @@ class Projectile:
 
     def receive(self, other, origin, tile, root):
         root = tile.find_in(tile.leave(self, root)).enter(other, origin, root)
-        tile = tile.find_in(root)
-        return root if other.identifies_with(self.key) else tile.enter(self, tile, root)
+        return self.interact_with(other, origin.find_in(root), tile.find_in(root), root)
 
     def identifies_with(self, key):
         return key is self.key
