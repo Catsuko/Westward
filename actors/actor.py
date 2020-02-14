@@ -20,9 +20,9 @@ class Actor:
     def receive(self, other, origin, tile, root):
         return root.with_area(origin)
 
-    def replace(self, old, new, tile, root):
+    def replace(self, old, new, root):
         updated_components = self.components.replace(old, new)
-        return tile.replace_actor(Actor(self.action, self.interaction, self.key, updated_components), root)
+        return root.replace_actor(Actor(self.action, self.interaction, self.key, updated_components))
 
     def attempt(self, action, root, *args):
         return self.components.attempt(action, self, root, *args)
