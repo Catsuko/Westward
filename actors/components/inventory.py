@@ -3,6 +3,9 @@ class Inventory:
     def __init__(self, items=frozenset()):
         self.items = items
 
+    def update(self):
+        return Inventory(frozenset([item.update() for item in iter(self.items)]))
+
     def use_primary(self, actor, root, target, tile):
         if len(self.items) is 0:
             return root

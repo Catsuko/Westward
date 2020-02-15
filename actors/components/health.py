@@ -4,6 +4,9 @@ class Health:
         self.current = current
         self.total = total
 
+    def update(self):
+        return self
+
     def damage(self, actor, root, tile):
         health_left = Health(self.current - 1, self.total)
         return actor.replace(self, health_left, root) if health_left.alive() else tile.leave(actor, root)

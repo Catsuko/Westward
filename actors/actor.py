@@ -9,6 +9,8 @@ class Actor:
         self.key = key
         self.components = components
 
+    # TODO: Currently replacing the actor here is overriding potential changes made to the actor during the action.
+    #       This is preventing items from being updated as their old selves are being put back into the world.
     def act(self, tile, root):
         root, action = self.action.on(self, tile, root)
         return root.replace_actor(Actor(action, self.interaction, self.key, self.components))
