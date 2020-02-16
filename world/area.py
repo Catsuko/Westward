@@ -15,6 +15,7 @@ class Area(Bounds):
         root = (root or self).with_area(area_after_effects)
         return reduce(lambda root_area, sub_area: sub_area.update(root_area), self.sub_areas, root)
 
+    # TODO: How can this method be eliminated? How can an actor update its state in the world?
     def update_actor(self, actor, root=None):
         return reduce(lambda root_area, sub_area: sub_area.update_actor(actor, root_area), self.sub_areas, root or self)
 
