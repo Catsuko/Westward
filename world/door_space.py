@@ -14,10 +14,7 @@ class DoorSpace:
     def update(self, tile, root):
         return root
 
-    def update_actor(self, actor, tile, root):
-        return root
-
-    def replace_actor(self, actor, tile, root):
+    def update_actor(self, actor, update_delegate, tile, root):
         return root
 
     def print_to(self, x, y, media):

@@ -11,11 +11,8 @@ class RenderedArea(Bounds):
         self.media.with_area(self.area).render()
         return RenderedArea(self.area.update(root), self.media)
 
-    def update_actor(self, actor, root):
-        return self.area.update_actor(actor, root)
-
-    def replace_actor(self, actor, root):
-        return self.area.replace_actor(actor, root)
+    def update_actor(self, actor, update_delegate, root=None):
+        return RenderedArea(self.area.update_actor(actor, update_delegate, root))
 
     def with_area(self, area):
         return RenderedArea(self.area.with_area(area), self.media)

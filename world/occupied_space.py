@@ -11,16 +11,16 @@ class OccupiedSpace:
         return root.with_area(tile.with_space(OpenSpace())) if actor == self.occupant else root
 
     def update(self, tile, root):
-        return root.update_actor(self.occupant, root)
+        return root.update_actor(self.occupant, self.__update_occupant)
 
-    def update_actor(self, actor, tile, root):
-        return self.occupant.act(tile, root) if actor == self.occupant else root
-
-    def replace_actor(self, actor, tile, root):
-        return root.with_area(tile.with_space(OccupiedSpace(actor))) if actor == self.occupant else root
+    def update_actor(self, actor, update_delegate, tile, root):
+        return update_delegate(self.occupant, tile, root) if self.occupant == actor else root
 
     def print_to(self, x, y, media):
         return self.occupant.print_to(x, y, media)
+
+    def __update_occupant(self, actor, tile, root):
+        return actor.act(tile, root)
 
     def __replace(self, occupant, tile, root):
         return root.with_area(tile.with_space(OccupiedSpace(occupant)))

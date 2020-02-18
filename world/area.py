@@ -16,11 +16,9 @@ class Area(Bounds):
         return reduce(lambda root_area, sub_area: sub_area.update(root_area), self.sub_areas, root)
 
     # TODO: How can this method be eliminated? How can an actor update its state in the world?
-    def update_actor(self, actor, root=None):
-        return reduce(lambda root_area, sub_area: sub_area.update_actor(actor, root_area), self.sub_areas, root or self)
-
-    def replace_actor(self, actor, root=None):
-        return reduce(lambda root_area, area: area.replace_actor(actor, root_area), self.sub_areas, root or self)
+    def update_actor(self, actor, update_delegate, root=None):
+        root = root or self
+        return reduce(lambda root_area, sub_area: sub_area.update_actor(actor, update_delegate, root_area), self.sub_areas, root)
 
     def with_area(self, area):
         if area == self:
