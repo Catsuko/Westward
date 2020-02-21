@@ -9,11 +9,12 @@ class Actor:
         self.key = key
         self.components = components
 
-    # TODO: Currently replacing the actor here is overriding potential changes made to the actor during the action.
-    #       This is preventing items from being updated as their old selves are being put back into the world.
+    # TODO: The gun is now updating but there is a lot of complexity.
+    #       Focus on the purpose of these methods and refactor to make them simpler.
     def act(self, tile, root):
         root, action = self.action.on(self, tile, root)
-        return root.update_actor(self, self.__replacer(Actor(action, self.interaction, self.key, self.components)))
+        update_delegate = self.__transform(lambda actor: actor.with_action(action))
+        return root.update_actor(self, update_delegate)
     
     def interact_with(self, other, origin, tile, root):
         root, interaction = self.interaction.interact_with(self, origin, other, tile, root)
@@ -37,6 +38,12 @@ class Actor:
 
     def unique(self):
         return Actor(self.action, self.interaction, self.key + str(uuid.uuid1()), self.components)
+
+    def with_action(self, action):
+        return Actor(action, self.interaction, self.key, self.components)
+
+    def __transform(self, delegate):
+        return lambda actor, tile, root: tile.find_in(tile.leave(actor, root)).enter(delegate(actor), tile, root)
 
     def __replacer(self, actor_to_update):
         return lambda actor, tile, root: tile.find_in(tile.leave(actor, root)).enter(actor_to_update, tile, root)

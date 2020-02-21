@@ -4,9 +4,6 @@ class Gun:
         self.bullet_source = bullet_source
         self.count = count
 
-    def update(self):
-        return self
-
     # TODO: Potential fix for bullet collision is to make it so the gun has a 1 turn cooldown?
     def use(self, actor, tile, target, root):
         direction = tile.to(target)
