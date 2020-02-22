@@ -9,8 +9,7 @@ class Actor:
         self.key = key
         self.components = components
 
-    # TODO: The gun is now updating but there is a lot of complexity.
-    #       Focus on the purpose of these methods and refactor to make them simpler.
+    # TODO: Update components before action!
     def act(self, tile, root):
         root, action = self.action.on(self, tile, root)
         update_delegate = self.__transform(lambda actor: actor.with_action(action))
