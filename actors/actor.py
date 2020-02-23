@@ -9,9 +9,10 @@ class Actor:
         self.key = key
         self.components = components
 
-    # TODO: Update components before action!
     def act(self, tile, root):
-        root, action = self.action.on(self, tile, root)
+        with_components = Actor(self.action, self.interaction, self.key, self.components.update())
+        root = root.update_actor(self, self.__replacer(with_components))
+        root, action = self.action.on(with_components, tile, root)
         update_delegate = self.__transform(lambda actor: actor.with_action(action))
         return root.update_actor(self, update_delegate)
     
@@ -46,6 +47,9 @@ class Actor:
 
     def __replacer(self, actor_to_update):
         return lambda actor, tile, root: tile.find_in(tile.leave(actor, root)).enter(actor_to_update, tile, root)
+
+    def __with_updated_components(self):
+        return Actor(self.action, self.interaction. self.key, self.components.update())
 
     def __eq__(self, other):
         return isinstance(other, Actor) and other.identifies_with(self.key)

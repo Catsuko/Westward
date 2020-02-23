@@ -1,4 +1,4 @@
-# TODO: Currently bullets fired downwards will collide with each other in a way that makes them appear frozen
+# TODO: When two bullets collide, they should destroy each other!
 class Projectile:
 
     def __init__(self, velocity, key):

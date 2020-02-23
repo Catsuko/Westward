@@ -8,7 +8,8 @@ class MappedInteraction:
         root, _ = other.print_to(0, 0, self).interact_with(actor, tile, other, origin, root)
         return root, self
 
-    # TODO: Make actor key a descriptive object that encapsulates the actor's UUID
     def with_actor(self, x, y, key):
+        # TODO: Instead of accessing a part of the key by index, make a key value object that can encapsulate
+        #       the internal structure of the key.
         key = key[0]
         return self.lookup[key] if key in self.lookup else self.default_interaction
