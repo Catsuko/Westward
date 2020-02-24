@@ -4,6 +4,9 @@ class ActorTarget:
         self.target_key = target_key
         self.target_position = target_position
 
+    def found(self):
+        return self.target_position is not None
+
     def with_area(self, area):
         return area.print_to(self)
 
