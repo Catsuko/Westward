@@ -1,4 +1,3 @@
-# TODO: When two bullets collide, they should destroy each other!
 class Projectile:
 
     def __init__(self, velocity, key):
@@ -12,7 +11,8 @@ class Projectile:
         return destination.enter(self, origin, root_without_projectile)
 
     def attempt(self, action, root, *args):
-        return root
+        tile, *_ = args
+        return tile.leave(self, root)
 
     def interact_with(self, other, origin, tile, root):
         return origin.leave(self, other.attempt("damage", root, tile))
