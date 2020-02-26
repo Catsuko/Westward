@@ -4,9 +4,6 @@ class ActorTarget:
         self.target_key = target_key
         self.target_position = target_position
 
-    def found(self):
-        return self.target_position is not None
-
     def with_area(self, area):
         return area.print_to(self)
 
@@ -27,3 +24,10 @@ class ActorTarget:
 
     def direction_to(self, origin):
         return (0, 0) if self.target_position is None else origin.direction_from(*self.target_position)
+
+    def found(self):
+        return self.target_position is not None
+
+    def found_at(self, x, y):
+        target_x, target_y = self.target_position
+        return target_x is x and target_y is y

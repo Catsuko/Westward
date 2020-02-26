@@ -1,6 +1,6 @@
 class Gun:
 
-    def __init__(self, bullet_source, reload_counter=0, reload_duration=2):
+    def __init__(self, bullet_source, reload_duration=2, reload_counter=0):
         self.bullet_source = bullet_source
         self.reload_counter = reload_counter
         self.reload_duration = reload_duration
