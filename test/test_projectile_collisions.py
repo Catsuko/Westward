@@ -5,7 +5,7 @@ from actors.projectile import Projectile
 from world.area_builder import AreaBuilder
 
 
-class MyTestCase(unittest.TestCase):
+class ProjectileCollisionTests(unittest.TestCase):
 
     def test_two_projectiles_destroy_each_other(self):
         key = "*"
