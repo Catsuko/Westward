@@ -21,4 +21,4 @@ class Gun:
         return bullet.act(tile, root)
 
     def __tick_reload_counter(self):
-        return Gun(self.bullet_source, self.reload_counter - 1, self.reload_duration)
+        return Gun(self.bullet_source, self.reload_duration, self.reload_counter - 1)
