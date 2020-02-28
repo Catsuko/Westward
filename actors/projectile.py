@@ -1,3 +1,6 @@
+import uuid
+
+
 class Projectile:
 
     def __init__(self, velocity, key):
@@ -23,6 +26,9 @@ class Projectile:
 
     def identifies_with(self, key):
         return key is self.key
+
+    def unique(self):
+        return Projectile(self.velocity, self.key + str(uuid.uuid1()))
 
     def print_to(self, x, y, media):
         return media.with_actor(x, y, self.key)
