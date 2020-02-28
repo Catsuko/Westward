@@ -46,7 +46,6 @@ class ActorSpawnEffectTests(unittest.TestCase):
         area_with_death_trigger_spawn = area_without_first_spawn.update()
         self.assertTrue(area_with_death_trigger_spawn.print_to(dummy_query).found())
 
-
     def __create_dummy(self):
         key = "d"
         query = ActorQuery(lambda x, y, actor: actor[0] is key)
