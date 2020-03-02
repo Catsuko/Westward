@@ -1,6 +1,9 @@
 import unittest
 
 from ddt import ddt, data
+
+from actors.actions.damage_action import DamageAction
+from actors.actions.delayed_action import DelayedAction
 from actors.actions.null_action import NullAction
 from actors.actor import Actor
 from actors.actor_query import ActorQuery
@@ -66,7 +69,9 @@ class DynamiteTests(unittest.TestCase):
         return ActorQuery(matcher)
 
     def __create_dynamite(self, detonation_delay=3, detonation_range=3):
-        return Actor(NullAction(), NullInteraction(), "d", Components())
+        action = DelayedAction(DamageAction(), detonation_delay)
+        components = Components(frozenset([Health(1, 1)]))
+        return Actor(action, NullInteraction(), "d", components)
 
 
 if __name__ == '__main__':
