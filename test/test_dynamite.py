@@ -57,12 +57,11 @@ class DynamiteTests(unittest.TestCase):
 
     def test_dynamite_detonates_early_when_damaged(self):
         dynamite = self.__create_dynamite(5, 5)
-        nearby_actor = Actor(NullAction(), NullInteraction(), "n", Components(frozenset([Health(1, 1)])))
         projectile = Projectile((1, 0), "*")
         area = AreaBuilder().rectangle(5, 5)\
                             .with_actor(projectile, 1, 2)\
                             .with_actor(dynamite, 2, 2)\
-                            .with_actor(nearby_actor, 0, 0).to_area()
+                            .to_area()
         self.assertFalse(area.update().print_to(self.__create_query()).found())
 
     def __create_query(self, matcher=lambda x, y, actor: True):
