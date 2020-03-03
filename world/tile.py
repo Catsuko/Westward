@@ -14,6 +14,10 @@ class Tile(Bounds):
     def update_actor(self, actor, update_delegate, root):
         return self.space.update_actor(actor, update_delegate, self, root)
 
+    def attempt(self, action, root, *args):
+        args = args + (self,)
+        return self.space.attempt(action, root, *args)
+
     # TODO: How can we refactor tile and find_in, these methods feel weird!
     def tile(self, x, y):
         return self

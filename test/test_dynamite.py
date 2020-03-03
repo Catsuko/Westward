@@ -2,6 +2,7 @@ import unittest
 
 from ddt import ddt, data
 
+from actors.actions.area_of_effect_action import AreaOfEffectAction
 from actors.actions.damage_action import DamageAction
 from actors.actions.delayed_action import DelayedAction
 from actors.actions.null_action import NullAction
@@ -44,7 +45,7 @@ class DynamiteTests(unittest.TestCase):
                             .with_actor(nearby_actor, *actor_position).to_area()
         self.assertFalse(area.update().update().print_to(self.__create_query()).found())
 
-    @data((0, 0), (6, 6), (0, 3), (6, 3), (3, 0), (3, 6), (2, 1), (5, 4))
+    @data((0, 0), (6, 6), (0, 3), (6, 3), (3, 0), (3, 6), (1, 1), (5, 5))
     def test_detonation_does_not_damage_outside_range(self, actor_position):
         dynamite = self.__create_dynamite(1, 2)
         actor_key = "n"
@@ -69,7 +70,8 @@ class DynamiteTests(unittest.TestCase):
 
     def __create_dynamite(self, detonation_delay=3, detonation_range=3):
         action = DelayedAction(DamageAction(), detonation_delay)
-        components = Components(frozenset([Health(1, 1)]))
+        health = Health(1, 1, AreaOfEffectAction(detonation_range))
+        components = Components(frozenset([health]))
         return Actor(action, NullInteraction(), "d", components)
 
 

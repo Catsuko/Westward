@@ -16,6 +16,9 @@ class OccupiedSpace:
     def update_actor(self, actor, update_delegate, tile, root):
         return update_delegate(self.occupant, tile, root) if self.occupant == actor else root
 
+    def attempt(self, action, root, *args):
+        return self.occupant.attempt(action, root, *args)
+
     def print_to(self, x, y, media):
         return self.occupant.print_to(x, y, media)
 
