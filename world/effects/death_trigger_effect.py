@@ -1,4 +1,7 @@
-class DeathTriggerEffect:
+from views.area_media import AreaMedia
+
+
+class DeathTriggerEffect(AreaMedia):
 
     def __init__(self, effect, actors=[], keys=[]):
         self.effect = effect
@@ -14,17 +17,5 @@ class DeathTriggerEffect:
     def watch(self, actor):
         return DeathTriggerEffect(self.effect, self.actors + [actor], self.keys)
 
-    def with_open_space(self, x, y):
-        return self
-
-    def with_wall(self, x, y):
-        return self
-
     def with_actor(self, x, y, key):
         return DeathTriggerEffect(self.effect, self.actors, self.keys + [key])
-
-    def with_ledge(self, x, y):
-        return self
-
-    def with_door(self, x, y):
-        return self

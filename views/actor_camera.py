@@ -1,4 +1,7 @@
-class ActorCamera:
+from views.area_media import AreaMedia
+
+
+class ActorCamera(AreaMedia):
 
     def __init__(self, focus_key, point_camera):
         self.focus_key = focus_key
@@ -14,18 +17,7 @@ class ActorCamera:
         focused_camera = area.print_to(self).to_point_camera()
         return area.print_to(focused_camera)
 
-    def with_open_space(self, x, y):
-        return self
-
-    def with_wall(self, x, y):
-        return self
-
     def with_actor(self, x, y, key):
         return ActorCamera(self.focus_key, self.point_camera.move_to(x, y)) if self.focus_key == key else self
 
-    def with_ledge(self, x, y):
-        return self
-
-    def with_door(self, x, y):
-        return self
 

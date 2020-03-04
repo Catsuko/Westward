@@ -1,4 +1,7 @@
-class ConsoleView:
+from views.area_media import AreaMedia
+
+
+class ConsoleView(AreaMedia):
 
     def __init__(self, contents={}):
         self.contents = contents

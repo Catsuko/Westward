@@ -1,4 +1,7 @@
-class PointCamera:
+from views.area_media import AreaMedia
+
+
+class PointCamera(AreaMedia):
 
     def __init__(self, x, y, size, media):
         self.x = x

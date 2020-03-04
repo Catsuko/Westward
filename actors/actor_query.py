@@ -1,4 +1,7 @@
-class ActorQuery:
+from views.area_media import AreaMedia
+
+
+class ActorQuery(AreaMedia):
 
     def __init__(self, matcher, matches=[]):
         self.matcher = matcher
@@ -7,20 +10,8 @@ class ActorQuery:
     def with_area(self, area):
         return area.print_to(self)
 
-    def with_open_space(self, x, y):
-        return self
-
-    def with_wall(self, x, y):
-        return self
-
     def with_actor(self, x, y, key):
         return ActorQuery(self.matcher, self.matches + [(x, y, key)]) if self.matcher(x, y, key) else self
-
-    def with_ledge(self, x, y):
-        return self
-
-    def with_door(self, x, y):
-        return self
 
     def match_count(self):
         return len(self.matches)
