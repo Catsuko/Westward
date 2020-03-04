@@ -17,3 +17,7 @@ class AreaMedia:
 
     def with_door(self, x, y):
         return self
+
+    def with_effect(self, x, y, effect_description):
+        return self
+
