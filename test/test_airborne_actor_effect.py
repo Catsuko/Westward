@@ -14,12 +14,12 @@ class AirborneActorEffectTests(unittest.TestCase):
 
     def test_effect_adds_at_shadow_at_starting_position(self):
         area = self.__create_area_with_effect((1, 0), (1, 0), 5)
-        effect_query = EffectQuery(lambda x, y, effect: effect is "shadow")
+        effect_query = EffectQuery(lambda x, y, effect: effect == "shadow")
         self.assertTrue(area.print_to(effect_query).found_at(1, 0))
 
     def test_shadow_moves_towards_destination_as_area_updates(self):
         area = self.__create_area_with_effect((0, 0), (1, 0), 2)
-        effect_query = EffectQuery(lambda x, y, effect: effect is "shadow")
+        effect_query = EffectQuery(lambda x, y, effect: effect == "shadow")
         self.assertTrue(area.update().print_to(effect_query).found_at(1, 0))
 
     def test_effect_triggers_once_destination_has_been_reached(self):

@@ -44,7 +44,7 @@ class Area(Bounds):
         return Area(self.sub_areas, [new if e is old else e for e in self.effects])
 
     def print_to(self, media):
-        return reduce(lambda m, area: area.print_to(m), self.sub_areas, media)
+        return reduce(lambda m, obj: obj.print_to(m), self.sub_areas + self.effects, media)
 
     def __replace_area(self, area):
         return Area([area if area == sub_area else sub_area for sub_area in self.sub_areas], self.effects)

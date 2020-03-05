@@ -14,3 +14,6 @@ class SpawnEffect:
                 death_trigger = death_trigger.watch(actor)
             area = tile.enter(actor, tile, area)
         return area.without_effect(self) if death_trigger is None else area.replace_effect(self, death_trigger)
+
+    def print_to(self, media):
+        return media

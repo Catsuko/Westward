@@ -19,3 +19,7 @@ class DeathTriggerEffect(AreaMedia):
 
     def with_actor(self, x, y, key):
         return DeathTriggerEffect(self.effect, self.actors, self.keys + [key])
+
+    def print_to(self, media):
+        return media
+

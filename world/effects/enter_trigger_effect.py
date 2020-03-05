@@ -19,5 +19,8 @@ class EnterTriggerEffect(AreaMedia):
         center_x, center_y = self.center
         return self if abs(center_x - x) > self.radius or abs(center_y - y) > self.radius else self.__up_count()
 
+    def print_to(self, media):
+        return media
+
     def __up_count(self):
         return EnterTriggerEffect(self.effect, self.center, self.radius, self.entered_count + 1)
