@@ -13,8 +13,8 @@ class ActorTarget(AreaMedia):
     def with_actor(self, x, y, key):
         return ActorTarget(self.target_key, (x, y)) if key == self.target_key else self
 
-    def direction_to(self, origin):
-        return (0, 0) if self.target_position is None else origin.direction_from(*self.target_position)
+    def direction_to(self, origin, normalize=True):
+        return (0, 0) if self.target_position is None else origin.direction_from(*self.target_position, normalize)
 
     def found(self):
         return self.target_position is not None

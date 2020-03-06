@@ -40,12 +40,17 @@ class Tile(Bounds):
     def leave(self, actor, root):
         return self.space.leave(actor, self, root)
 
-    def to(self, other_tile):
-        x, y = other_tile.direction_from(self.x, self.y)
+    def to(self, other_tile, normalize=True):
+        x, y = other_tile.direction_from(self.x, self.y, normalize)
         return -x, -y
 
-    def direction_from(self, x, y):
-        return min(max(x - self.x, -1), 1), min(max(-1, y - self.y), 1)
+    def direction_from(self, x, y, normalize=True):
+        x = x - self.x
+        y = y - self.y
+        if normalize:
+            x = min(max(x, -1), 1)
+            y = min(max(y, -1), 1)
+        return x, y
 
     def neighbour(self, x_offset, y_offset, root):
         return root.tile(self.x + x_offset, self.y + y_offset)

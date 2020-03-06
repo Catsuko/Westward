@@ -1,3 +1,4 @@
+from actors.actions.hit_and_run_action import HitAndRunAction
 from actors.actions.shoot_at_action import ShootAtAction
 from actors.actor_target import ActorTarget
 from actors.components.components import Components
@@ -23,11 +24,15 @@ gun = Gun(lambda aim_dir: Projectile(aim_dir, "*"))
 inventory = Inventory(frozenset([gun]))
 player_target = ActorTarget(player_key)
 cowboy_components = Components(frozenset([inventory, Health(3, 3)]))
-bandit = Actor(ShootAtAction(player_target, UseAction()), NullInteraction(), "b", cowboy_components)
+shoot_at_action = ShootAtAction(player_target, UseAction())
+hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, 5, 2)
+bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
                     .with_actor(player, 7, 7)
                     .with_actor(bandit, 7, 0)
+                    .with_actor(bandit.unique(), 2, 4)
+                    .with_actor(bandit.unique(), 6, 4)
                     .to_area(), ConsoleView())
 while True:
     area = area.update()
