@@ -10,7 +10,7 @@ class ShootAtAction(Action):
     def on(self, actor, tile, root):
         target = self.target.with_area(root)
         x, y = target.direction_to(tile)
-        if abs(x + y) is 1:
+        if abs(x + y) == 1:
             root, _ = self.action.redirect(x, y).on(actor, tile, root)
         return root, self
 

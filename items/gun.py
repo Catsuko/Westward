@@ -6,7 +6,7 @@ class Gun:
         self.reload_duration = reload_duration
 
     def update(self):
-        return self if self.reload_counter is 0 else self.__tick_reload_counter()
+        return self if self.reload_counter == 0 else self.__tick_reload_counter()
 
     def use(self, actor, tile, target, root):
         if self.reload_counter > 0:

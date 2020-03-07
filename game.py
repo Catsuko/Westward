@@ -16,6 +16,7 @@ from actors.actor import Actor
 from world.rendered_area import RenderedArea
 from utilities.countdown import Countdown
 
+
 player_key = 'p'
 input_action = KeyboardDrivenAction({
     'w': MoveAction(0, -1), 's': MoveAction(0, 1), 'a': MoveAction(-1, 0), 'd': MoveAction(1, 0),

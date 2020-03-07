@@ -17,5 +17,5 @@ class MoveAction(Action):
         return tile.neighbour(self.x_dir, self.y_dir, root).enter(actor, tile, tile.leave(actor, root))
 
     def __is_stationary(self):
-        return self.x_dir + self.y_dir is 0
+        return self.x_dir + self.y_dir == 0
 

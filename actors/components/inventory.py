@@ -10,7 +10,7 @@ class Inventory(Component):
         return Inventory(frozenset([item.update() for item in iter(self.items)]))
 
     def use_primary(self, actor, root, target, tile):
-        if len(self.items) is 0:
+        if len(self.items) == 0:
             return root
         primary_item = next(iter(self.items))
         root, updated_item = primary_item.use(actor, tile, target, root)
