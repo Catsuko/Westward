@@ -8,6 +8,7 @@ from actors.interactions.null_interaction import NullInteraction
 from world.area_builder import AreaBuilder
 from world.effects.airborne_actor_effect import AirborneActorEffect
 from world.effects.effect_query import EffectQuery
+from utilities.countdown import Countdown
 
 
 class AirborneActorEffectTests(unittest.TestCase):
@@ -29,7 +30,7 @@ class AirborneActorEffectTests(unittest.TestCase):
 
     def __create_area_with_effect(self, start_position, direction, turns_airborne):
         actor = Actor(NullAction(), NullInteraction(), "d", Components())
-        airborne_effect = AirborneActorEffect(actor, start_position, direction, turns_airborne)
+        airborne_effect = AirborneActorEffect(actor, start_position, direction, Countdown(turns_airborne))
         return AreaBuilder().rectangle(5, 5).to_area().with_effect(airborne_effect)
 
 
