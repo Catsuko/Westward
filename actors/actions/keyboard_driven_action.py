@@ -1,8 +1,10 @@
 import keyboard
 import time
 
+from actors.actions.action import Action
 
-class KeyboardDrivenAction:
+
+class KeyboardDrivenAction(Action):
 
     def __init__(self, key_map, timeout_seconds=1.0):
         self.key_map = key_map

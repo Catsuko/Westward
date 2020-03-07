@@ -1,8 +1,9 @@
+from actors.actions.action import Action
 import random
 
 
 # TODO: Tidy this mess up. Refactor conditional behaviour and use a move action
-class HitAndRunAction:
+class HitAndRunAction(Action):
 
     def __init__(self, target, action, movement, target_distance, run_countdown):
         self.target = target

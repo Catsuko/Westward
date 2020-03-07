@@ -1,7 +1,9 @@
 import random
 
+from actors.actions.action import Action
 
-class RandomDrivenAction:
+
+class RandomDrivenAction(Action):
 
     def __init__(self, actions=[]):
         self.actions = actions

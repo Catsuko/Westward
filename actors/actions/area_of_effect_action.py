@@ -1,4 +1,7 @@
-class AreaOfEffectAction:
+from actors.actions.action import Action
+
+
+class AreaOfEffectAction(Action):
 
     def __init__(self, radius=1):
         self.radius = radius

@@ -1,4 +1,7 @@
-class ChaseAction:
+from actors.actions.action import Action
+
+
+class ChaseAction(Action):
 
     def __init__(self, target, movement):
         self.target = target
@@ -11,4 +14,3 @@ class ChaseAction:
             y = 0
         root, action = self.movement.redirect(x, y).on(actor, tile, root)
         return root, ChaseAction(self.target, action)
-

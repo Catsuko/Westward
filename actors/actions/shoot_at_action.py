@@ -1,4 +1,7 @@
-class ShootAtAction:
+from actors.actions.action import Action
+
+
+class ShootAtAction(Action):
 
     def __init__(self, target, action):
         self.target = target

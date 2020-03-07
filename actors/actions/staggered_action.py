@@ -1,4 +1,7 @@
-class StaggeredAction:
+from actors.actions.action import Action
+
+
+class StaggeredAction(Action):
 
     def __init__(self, action, waiting=True):
         self.action = action

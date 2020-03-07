@@ -1,4 +1,7 @@
-class DelayedAction:
+from actors.actions.action import Action
+
+
+class DelayedAction(Action):
 
     def __init__(self, action, delay_remaining=1):
         self.action = action

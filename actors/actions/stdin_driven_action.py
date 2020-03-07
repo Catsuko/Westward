@@ -1,4 +1,7 @@
-class StdinDrivenAction:
+from actors.actions.action import Action
+
+
+class StdinDrivenAction(Action):
 
     def __init__(self, key_map):
         self.key_map = key_map

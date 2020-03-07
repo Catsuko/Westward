@@ -1,4 +1,7 @@
-class MoveAction:
+from actors.actions.action import Action
+
+
+class MoveAction(Action):
 
     def __init__(self, x_dir=0, y_dir=0):
         self.x_dir = x_dir
