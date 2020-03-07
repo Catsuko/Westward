@@ -4,25 +4,25 @@ import random
 # TODO: Tidy this mess up. Refactor conditional behaviour and use a move action
 class HitAndRunAction:
 
-    def __init__(self, target, action, target_distance, run_countdown):
+    def __init__(self, target, action, movement, target_distance, run_countdown):
         self.target = target
         self.action = action
+        self.movement = movement
         self.target_distance = target_distance
         self.run_countdown = run_countdown
 
     def on(self, actor, tile, root):
-        action = self
         target_x, target_y = self.target.with_area(root).direction_to(tile, normalize=False)
         distance = abs(target_x) + abs(target_y)
         if self.run_countdown.is_finished() and distance == self.target_distance:
             root, action = self.action.on(actor, tile, root)
-            action = HitAndRunAction(self.target, action, self.target_distance, self.run_countdown.reset())
+            countdown = self.run_countdown.reset()
+            action = HitAndRunAction(self.target, action, self.movement, self.target_distance, countdown)
         else:
-            action = HitAndRunAction(self.target, self.action, self.target_distance, self.run_countdown.tick())
+            countdown = self.run_countdown.tick()
+            action = HitAndRunAction(self.target, self.action, self.movement, self.target_distance, countdown)
             move_x, move_y = self.__pick_move_direction(target_x, target_y, distance)
-            if move_x + move_y != 0:
-                move_target = tile.neighbour(move_x, move_y, root)
-                root = move_target.enter(actor, tile, tile.leave(actor, root))
+            root, _ = self.movement.redirect(move_x, move_y).on(actor, tile, root)
         return root, action
 
     def __at_target_distance(self, x, y):
