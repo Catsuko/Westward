@@ -1,12 +1,12 @@
-class Health:
+from actors.components.component import Component
+
+
+class Health(Component):
 
     def __init__(self, current, total, death_action=None):
         self.current = current
         self.total = total
         self.death_action = death_action
-
-    def update(self):
-        return self
 
     def damage(self, actor, root, tile):
         health_left = self.__change_health(self.current - 1)
@@ -18,6 +18,9 @@ class Health:
 
     def alive(self):
         return self.current > 0
+
+    def print_to(self, media):
+        return media if self.death_action is None else self.death_action.print_to(media)
 
     def __change_health(self, current):
         return Health(current, self.total, self.death_action)

@@ -1,4 +1,7 @@
-class Inventory:
+from actors.components.component import Component
+
+
+class Inventory(Component):
 
     def __init__(self, items=frozenset()):
         self.items = items

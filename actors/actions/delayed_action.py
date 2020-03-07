@@ -10,3 +10,4 @@ class DelayedAction(Action):
     def on(self, actor, tile, root):
         delay_remaining = self.delay_remaining - 1
         return root, (DelayedAction(self.action, delay_remaining) if delay_remaining > 0 else self.action)
+
