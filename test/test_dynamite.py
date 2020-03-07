@@ -13,6 +13,7 @@ from actors.components.health import Health
 from actors.interactions.null_interaction import NullInteraction
 from actors.projectile import Projectile
 from world.area_builder import AreaBuilder
+from world.effects.effect_query import EffectQuery
 
 
 @ddt
@@ -64,6 +65,13 @@ class DynamiteTests(unittest.TestCase):
                             .with_actor(dynamite, 2, 2)\
                             .to_area()
         self.assertFalse(area.update().print_to(self.__create_query()).found())
+
+    @data((0, 1), (1, 0), (1, 2), (2, 1))
+    def test_dynamite_describes_detonation_area_when_printed(self, danger_position):
+        dynamite = self.__create_dynamite(1, 1)
+        area = AreaBuilder().rectangle(3, 3).with_actor(dynamite, 1, 1).to_area()
+        effect_query = EffectQuery(lambda x, y, effect: effect == 'danger')
+        self.assertTrue(area.print_to(effect_query).found_at(*danger_position))
 
     def __create_query(self, matcher=lambda x, y, actor: True):
         return ActorQuery(matcher)
