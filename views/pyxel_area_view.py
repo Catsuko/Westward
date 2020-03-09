@@ -40,9 +40,12 @@ class PyxelAreaView(AreaMedia):
         self.effects.clear()
         self.tiles.clear()
 
+    # TODO: Cull outside of viewport, bring back the cameras?
+    # TODO: Find out what is going wrong with the dynamite.
+    # TODO: Increase size of tiles!
+    # TODO: Introduce input polling and create input strategy that reads from the pyxel view.
     def __draw(self):
         pyxel.cls(col=0)
-        pyxel.text(0, 0, "How the fuck will this\nbe immutable!", pyxel.frame_count % 16)
         offset = 20
         for x, y, tile in self.tiles:
             pyxel.pset(x + offset, y + offset, self.env.color(tile))
