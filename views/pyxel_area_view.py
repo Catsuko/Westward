@@ -4,33 +4,52 @@ from views.area_media import AreaMedia
 
 class PyxelAreaView(AreaMedia):
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, env):
         self.width = width
         self.height = height
-        self.actors = {}
-
-    def update(self):
-        pass
+        self.env = env
+        self.actors = set()
+        self.tiles = set()
+        self.effects = set()
 
     def render(self):
         pass
 
     def with_actor(self, x, y, key):
-        self.actors[key] = (x, y, key[0])
+        self.actors.add((x, y, key[0]))
+        return self
+
+    def with_effect(self, x, y, effect_description):
+        self.effects.add((x, y, effect_description))
+        return self
+
+    def with_open_space(self, x, y):
+        self.tiles.add((x, y, "ground"))
         return self
 
     def with_area(self, area):
         self.actors.clear()
         return area.print_to(self)
 
-    def draw(self):
-        pyxel.cls(col=1)
-        pyxel.text(0, 0, "How the fuck will this\nbe immutable!", pyxel.frame_count % 16)
-        for key in self.actors.keys():
-            x, y, actor = self.actors[key]
-            pyxel.pset(x + 20, y + 20, ord(actor) % 16)
-
     def run(self):
         pyxel.init(self.width, self.height, caption='Westward', scale=3, fps=30)
-        pyxel.run(self.update, self.draw)
+        pyxel.run(self.__update, self.__draw)
 
+    def __clear_imprints(self):
+        self.actors.clear()
+        self.effects.clear()
+        self.tiles.clear()
+
+    def __draw(self):
+        pyxel.cls(col=0)
+        pyxel.text(0, 0, "How the fuck will this\nbe immutable!", pyxel.frame_count % 16)
+        offset = 20
+        for x, y, tile in self.tiles:
+            pyxel.pset(x + offset, y + offset, self.env.color(tile))
+        for x, y, effect in self.effects:
+            pyxel.pset(x + offset, y + offset, self.env.color(effect))
+        for x, y, actor in self.actors:
+            pyxel.pset(x + offset, y + offset, self.env.color(actor[0]))
+
+    def __update(self):
+        pass
