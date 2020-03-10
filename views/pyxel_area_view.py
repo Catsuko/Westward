@@ -28,7 +28,7 @@ class PyxelAreaView(AreaMedia):
         return self
 
     def with_area(self, area):
-        self.actors.clear()
+        self.__clear_imprints()
         return area.print_to(self)
 
     def run(self):
@@ -41,7 +41,7 @@ class PyxelAreaView(AreaMedia):
         self.tiles.clear()
 
     # TODO: Cull outside of viewport, bring back the cameras?
-    # TODO: Find out what is going wrong with the dynamite.
+    # TODO: Make copies of collections before drawing
     # TODO: Increase size of tiles!
     # TODO: Introduce input polling and create input strategy that reads from the pyxel view.
     def __draw(self):
@@ -49,8 +49,9 @@ class PyxelAreaView(AreaMedia):
         offset = 20
         for x, y, tile in self.tiles:
             pyxel.pset(x + offset, y + offset, self.env.color(tile))
-        for x, y, effect in self.effects:
-            pyxel.pset(x + offset, y + offset, self.env.color(effect))
+        if pyxel.frame_count % 8 <= 4:
+            for x, y, effect in self.effects:
+                pyxel.pset(x + offset, y + offset, self.env.color(effect))
         for x, y, actor in self.actors:
             pyxel.pset(x + offset, y + offset, self.env.color(actor[0]))
 

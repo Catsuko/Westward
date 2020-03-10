@@ -19,8 +19,8 @@ class Health(Component):
     def alive(self):
         return self.current > 0
 
-    def print_to(self, media):
-        return media if self.death_action is None else self.death_action.print_to(media)
+    def print_to(self, x, y, media):
+        return media if self.death_action is None else self.death_action.print_to(x, y, media)
 
     def __change_health(self, current):
         return Health(current, self.total, self.death_action)

@@ -22,11 +22,8 @@ class Components(Component):
     def replace(self, old, new):
         return Components(self.components - frozenset([old]) | frozenset([new]))
 
-    def print_to(self, media):
-        return reduce(self.__print_component, self.components, media)
-
-    def __print_component(self, media, component):
-        return component.print_to(media)
+    def print_to(self, x, y, media):
+        return reduce(lambda m, c: c.print_to(x, y, media), self.components, media)
 
     def __swallow_attempt(self, actor, root, *args):
         return root

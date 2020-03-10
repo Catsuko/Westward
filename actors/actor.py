@@ -31,7 +31,7 @@ class Actor:
         return self.components.attempt(action, self, root, *args)
 
     def print_to(self, x, y, media):
-        return self.components.print_to(self.action.print_to(media)).with_actor(x, y, self.key)
+        return self.components.print_to(x, y, self.action.print_to(x, y, media)).with_actor(x, y, self.key)
 
     def identifies_with(self, key):
         return self.key == key

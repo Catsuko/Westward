@@ -10,18 +10,16 @@ class AreaOfEffectAction(Action):
 
     def on(self, actor, tile, root):
         for x, y in self.__affected_positions():
-            x_offset = x - self.radius
-            y_offset = y - self.radius
-            if abs(x_offset) + abs(y_offset) <= self.radius:
-                root = tile.neighbour(x_offset, y_offset, root).attempt("damage", root)
+            root = tile.neighbour(x, y, root).attempt("damage", root)
         return root
 
-    def print_to(self, media):
-        return reduce(self.__print_effect_description, self.__affected_positions(), media)
+    def print_to(self, x, y, media):
+        positions = self.__affected_positions(x, y)
+        return reduce(lambda m, pos: m.with_effect(*pos, self.effect_description), positions, media)
 
-    def __print_effect_description(self, media, position):
-        return media.with_effect(*position, self.effect_description)
+    def __affected_positions(self, x_offset=0, y_offset=0):
+        blast_range = range(-self.radius, self.radius+1)
+        return ((x + x_offset, y + y_offset) for x in blast_range for y in blast_range if self.__in_range(x, y))
 
-    def __affected_positions(self):
-        size = self.radius * 2 + 1
-        return ((x, y) for x in range(size) for y in range(size))
+    def __in_range(self, x, y):
+        return abs(x) + abs(y) <= self.radius
