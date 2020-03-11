@@ -41,19 +41,26 @@ class PyxelAreaView(AreaMedia):
         self.tiles.clear()
 
     # TODO: Cull outside of viewport, bring back the cameras?
-    # TODO: Make copies of collections before drawing
     # TODO: Increase size of tiles!
     # TODO: Introduce input polling and create input strategy that reads from the pyxel view.
     def __draw(self):
         pyxel.cls(col=0)
-        offset = 20
-        for x, y, tile in self.tiles:
-            pyxel.pset(x + offset, y + offset, self.env.color(tile))
+        for tile in self.tiles.copy():
+            self.__draw_tile(*tile)
+        for effect in self.effects.copy():
+            self.__draw_effect(*effect)
+        for actor in self.actors.copy():
+            self.__draw_actor(*actor)
+
+    def __draw_tile(self, x, y, tile):
+        pyxel.pset(x + 20, y + 20, self.env.color(tile))
+
+    def __draw_effect(self, x, y, effect):
         if pyxel.frame_count % 8 <= 4:
-            for x, y, effect in self.effects:
-                pyxel.pset(x + offset, y + offset, self.env.color(effect))
-        for x, y, actor in self.actors:
-            pyxel.pset(x + offset, y + offset, self.env.color(actor[0]))
+            pyxel.pset(x + 20, y + 20, self.env.color(effect))
+
+    def __draw_actor(self, x, y, actor):
+        pyxel.pset(x + 20, y + 20, self.env.color(actor[0]))
 
     def __update(self):
         pass
