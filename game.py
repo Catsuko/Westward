@@ -1,6 +1,3 @@
-from actors.actions.area_of_effect_action import AreaOfEffectAction
-from actors.actions.damage_action import DamageAction
-from actors.actions.delayed_action import DelayedAction
 from actors.actions.hit_and_run_action import HitAndRunAction
 from actors.actions.input_driven_action import InputDrivenAction
 from actors.actions.shoot_at_action import ShootAtAction
@@ -14,8 +11,9 @@ from actors.actions.move_action import MoveAction
 from actors.actions.use_action import UseAction
 from input.keyboard_input import KeyboardInput
 from items.gun import Gun
-from views.console_view import ConsoleView
+from views.actor_camera import ActorCamera
 from views.json_environment import JsonEnvironment
+from views.point_camera import PointCamera
 from views.pyxel_area_view import PyxelAreaView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
@@ -38,15 +36,11 @@ hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, MoveAction(
 bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
 pyxel_view = PyxelAreaView(128, 128, JsonEnvironment('config/pyxel_environment.json'))
-action = DelayedAction(DamageAction(), 7)
-health = Health(1, 1, AreaOfEffectAction(5))
-components = Components(frozenset([health]))
-dynamite = Actor(action, NullInteraction(), "d", components)
+camera = ActorCamera(player_key, PointCamera(0, 0, 4, pyxel_view))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
-                    .with_actor(player, 7, 7)
-                    .with_actor(dynamite, 6, 4)
-                    .with_actor(bandit, 3, 4)
-                    .to_area(), pyxel_view)
+                    .with_actor(player, 10, 3)
+                    .with_actor(bandit, 0, 0)
+                    .to_area(), camera)
 def update_loop(a):
     while True:
         a = a.update()

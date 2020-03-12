@@ -21,3 +21,4 @@ class ActorCamera(AreaMedia):
         return ActorCamera(self.focus_key, self.point_camera.move_to(x, y)) if self.focus_key == key else self
 
 
+

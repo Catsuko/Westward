@@ -18,6 +18,9 @@ class PointCamera(AreaMedia):
     def with_area(self, area):
         return area.print_to(self)
 
+    def with_effect(self, x, y, effect_description):
+        return self.__printed(self.media.with_effect(x, y, effect_description)) if self.__within_bounds(x, y) else self
+
     def with_open_space(self, x, y):
         return self.__printed(self.media.with_open_space(x, y)) if self.__within_bounds(x, y) else self
 
