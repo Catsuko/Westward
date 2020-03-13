@@ -54,14 +54,14 @@ class PyxelAreaView(AreaMedia):
             self.__draw_actor(*actor)
 
     def __draw_tile(self, x, y, tile):
-        pyxel.pset(x + 20, y + 20, self.env.color(tile))
+        pyxel.pset(x, y, self.env.color(tile))
 
     def __draw_effect(self, x, y, effect):
         if pyxel.frame_count % 8 <= 4:
-            pyxel.pset(x + 20, y + 20, self.env.color(effect))
+            pyxel.pset(x, y, self.env.color(effect))
 
     def __draw_actor(self, x, y, actor):
-        pyxel.pset(x + 20, y + 20, self.env.color(actor[0]))
+        pyxel.pset(x, y, self.env.color(actor[0]))
 
     def __update(self):
         pass

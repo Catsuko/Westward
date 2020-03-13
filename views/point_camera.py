@@ -1,3 +1,4 @@
+import math
 from views.area_media import AreaMedia
 
 
@@ -19,28 +20,37 @@ class PointCamera(AreaMedia):
         return area.print_to(self)
 
     def with_effect(self, x, y, effect_description):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_effect(x, y, effect_description)) if self.__within_bounds(x, y) else self
 
     def with_open_space(self, x, y):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_open_space(x, y)) if self.__within_bounds(x, y) else self
 
     def with_wall(self, x, y):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_wall(x, y)) if self.__within_bounds(x, y) else self
 
     def with_actor(self, x, y, key):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_actor(x, y, key)) if self.__within_bounds(x, y) else self
 
     def with_ledge(self, x, y):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_ledge(x, y)) if self.__within_bounds(x, y) else self
 
     def with_door(self, x, y):
+        x, y = self.__transform_point(x, y)
         return self.__printed(self.media.with_door(x, y)) if self.__within_bounds(x, y) else self
 
     def __within_bounds(self, x, y):
-        return abs(x - self.x) < self.size and abs(y - self.y) < self.size
+        return 0 <= x <= self.size * 2 and 0 <= y <= self.size * 2
 
     def __printed(self, media):
         return PointCamera(self.x, self.y, self.size, media)
+
+    def __transform_point(self, x, y):
+        return self.size + x - self.x, self.size + y - self.y
 
     def __str__(self):
         return str(self.media)

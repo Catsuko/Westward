@@ -36,10 +36,10 @@ hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, MoveAction(
 bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
 pyxel_view = PyxelAreaView(128, 128, JsonEnvironment('config/pyxel_environment.json'))
-camera = ActorCamera(player_key, PointCamera(0, 0, 4, pyxel_view))
+camera = ActorCamera(player_key, PointCamera(0, 0, 7, pyxel_view))
 area = RenderedArea(AreaBuilder().rectangle(16, 8)
-                    .with_actor(player, 10, 3)
-                    .with_actor(bandit, 0, 0)
+                    .with_actor(player, 0, 0)
+                    .with_actor(bandit, 15, 0)
                     .to_area(), camera)
 def update_loop(a):
     while True:
