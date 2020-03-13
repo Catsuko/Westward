@@ -4,6 +4,7 @@ from views.area_media import AreaMedia
 
 class PyxelAreaView(AreaMedia):
 
+    # TODO: Extract into smaller components with cohesive responsibilities
     def __init__(self, width, height, env):
         self.width = width
         self.height = height
@@ -14,6 +15,7 @@ class PyxelAreaView(AreaMedia):
         self.actors = set()
         self.tiles = set()
         self.effects = set()
+        self.resolution = range(8)
 
     def render(self):
         self.actors = self.next_actors
@@ -42,7 +44,6 @@ class PyxelAreaView(AreaMedia):
         pyxel.init(self.width, self.height, caption='Westward', scale=3, fps=30)
         pyxel.run(self.__update, self.__draw)
 
-    # TODO: Increase size of tiles!
     # TODO: Introduce input polling and create input strategy that reads from the pyxel view.
     def __draw(self):
         pyxel.cls(col=0)
@@ -53,15 +54,22 @@ class PyxelAreaView(AreaMedia):
         for actor in self.actors:
             self.__draw_actor(*actor)
 
+    # TODO: Calculate offsets and resolution based on window size.
     def __draw_tile(self, x, y, tile):
-        pyxel.pset(x, y, self.env.color(tile))
+        for px in self.resolution:
+            for py in self.resolution:
+                pyxel.pset(12 + px + x * 8, 12 + py + y * 8, self.env.color(tile))
 
     def __draw_effect(self, x, y, effect):
         if pyxel.frame_count % 8 <= 4:
-            pyxel.pset(x, y, self.env.color(effect))
+            for px in self.resolution:
+                for py in self.resolution:
+                    pyxel.pset(12 + px + x * 8, 12 + py + y * 8, self.env.color(effect))
 
     def __draw_actor(self, x, y, actor):
-        pyxel.pset(x, y, self.env.color(actor[0]))
+        for px in self.resolution:
+            for py in self.resolution:
+                pyxel.pset(12 + px + x * 8, 12 + py + y * 8, self.env.color(actor[0]))
 
     def __update(self):
         pass
