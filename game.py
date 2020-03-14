@@ -14,7 +14,10 @@ from items.gun import Gun
 from views.actor_camera import ActorCamera
 from views.json_environment import JsonEnvironment
 from views.point_camera import PointCamera
-from views.pyxel_area_view import PyxelAreaView
+from views.pyxel.draw_strategies.block_draw_strategy import BlockDrawStrategy
+from views.pyxel.draw_strategies.flicker_decorator import FlickerDecorator
+from views.pyxel.pyxel_area_view import PyxelAreaView
+from views.pyxel.pyxel_unit_view import PyxelUnitView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
 from world.rendered_area import RenderedArea
@@ -35,7 +38,11 @@ shoot_at_action = ShootAtAction(player_target, UseAction())
 hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, MoveAction(), 3, Countdown(4, 0))
 bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
-pyxel_view = PyxelAreaView(128, 128, JsonEnvironment('config/pyxel_environment.json'))
+block_draw_strategy = BlockDrawStrategy(range(8), JsonEnvironment('config/pyxel_environment.json'))
+tile_view = PyxelUnitView(block_draw_strategy)
+actor_view = PyxelUnitView(block_draw_strategy)
+effect_view = PyxelUnitView(FlickerDecorator(block_draw_strategy, 4))
+pyxel_view = PyxelAreaView(tile_view, actor_view, effect_view)
 camera = ActorCamera(player_key, PointCamera(0, 0, 6, pyxel_view))
 # TODO: Action that waits for an actor to enter within a certain distance? Make enemies idle about!
 area = RenderedArea(AreaBuilder().rectangle(20, 20)
@@ -50,4 +57,4 @@ def update_loop(a):
 
 thread = threading.Thread(target=lambda: update_loop(area))
 thread.start()
-pyxel_view.run()
+pyxel_view.run(128, 128)
