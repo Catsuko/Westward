@@ -1,6 +1,9 @@
 import pyxel
 
 
+# TODO: Perlin noise ground textures
+# TODO: Reduce size of actors
+# TODO: Reduce size of bullets
 class BlockDrawStrategy:
 
     def __init__(self, resolution, env):
