@@ -15,6 +15,7 @@ from views.actor_camera import ActorCamera
 from views.json_environment import JsonEnvironment
 from views.point_camera import PointCamera
 from views.pyxel.shaders.color_mapped_shader import ColorMappedShader
+from views.pyxel.shaders.perlin_noise_shader import PerlinNoiseShader
 from views.pyxel.shaders.scaled_shader import ScaledShader
 from views.pyxel.shaders.flicker_shader import FlickerShader
 from views.pyxel.pyxel_area_view import PyxelAreaView
@@ -40,7 +41,7 @@ hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, MoveAction(
 bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
 shader = ScaledShader(ColorMappedShader(JsonEnvironment('config/pyxel_environment.json')), range(8))
-tile_view = PyxelUnitView(shader)
+tile_view = PyxelUnitView(ScaledShader(PerlinNoiseShader(), range(8)))
 actor_view = PyxelUnitView(shader)
 effect_view = PyxelUnitView(FlickerShader(shader, 4))
 pyxel_view = PyxelAreaView(tile_view, actor_view, effect_view)
