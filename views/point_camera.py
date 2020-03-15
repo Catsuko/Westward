@@ -1,4 +1,3 @@
-import math
 from views.area_media import AreaMedia
 
 
