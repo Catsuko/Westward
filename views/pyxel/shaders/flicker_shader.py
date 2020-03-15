@@ -1,7 +1,7 @@
-class FlickerDecorator:
+class FlickerShader:
 
-    def __init__(self, strategy, frequency_mod):
-        self.strategy = strategy
+    def __init__(self, shader, frequency_mod):
+        self.shader = shader
         self.frequency_mod = frequency_mod
 
     def draw(self, x, y, description, time):
