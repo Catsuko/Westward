@@ -2,6 +2,7 @@ import pyxel
 from views.area_media import AreaMedia
 
 
+# TODO: Rethink how this shader business will work.
 class PyxelAreaView(AreaMedia):
 
     def __init__(self, tile_view, actor_view, effect_view):
