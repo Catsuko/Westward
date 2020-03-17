@@ -14,12 +14,10 @@ from items.gun import Gun
 from views.actor_camera import ActorCamera
 from views.json_environment import JsonEnvironment
 from views.point_camera import PointCamera
+from views.pyxel.pyxel_renderer import PyxelRenderer
 from views.pyxel.shaders.color_mapped_shader import ColorMappedShader
-from views.pyxel.shaders.perlin_noise_shader import PerlinNoiseShader
-from views.pyxel.shaders.scaled_shader import ScaledShader
 from views.pyxel.shaders.flicker_shader import FlickerShader
 from views.pyxel.pyxel_area_view import PyxelAreaView
-from views.pyxel.pyxel_unit_view import PyxelUnitView
 from world.area_builder import AreaBuilder
 from actors.actor import Actor
 from world.rendered_area import RenderedArea
@@ -40,11 +38,8 @@ shoot_at_action = ShootAtAction(player_target, UseAction())
 hit_and_run_action = HitAndRunAction(player_target, shoot_at_action, MoveAction(), 3, Countdown(4, 0))
 bandit = Actor(hit_and_run_action, NullInteraction(), "b", cowboy_components)
 player = Actor(input_action, NullInteraction(), player_key, cowboy_components)
-shader = ScaledShader(ColorMappedShader(JsonEnvironment('config/pyxel_environment.json')), range(8))
-tile_view = PyxelUnitView(shader)
-actor_view = PyxelUnitView(shader)
-effect_view = PyxelUnitView(FlickerShader(shader, 4))
-pyxel_view = PyxelAreaView(tile_view, actor_view, effect_view)
+mapped_shader = ColorMappedShader(JsonEnvironment('config/pyxel_environment.json'))
+pyxel_view = PyxelAreaView(PyxelRenderer(range(8)), mapped_shader, FlickerShader(mapped_shader, 4), mapped_shader)
 camera = ActorCamera(player_key, PointCamera(0, 0, 6, pyxel_view))
 # TODO: Action that waits for an actor to enter within a certain distance? Make enemies idle about!
 area = RenderedArea(AreaBuilder().rectangle(20, 20)

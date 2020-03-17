@@ -4,6 +4,6 @@ class FlickerShader:
         self.shader = shader
         self.frequency_mod = frequency_mod
 
-    def draw(self, x, y, description, time):
+    def color(self, renderer, description, time):
         if time % self.frequency_mod == 0:
-            self.strategy.draw(x, y, description, time)
+            self.shader.color(renderer, description, time)

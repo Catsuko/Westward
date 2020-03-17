@@ -5,27 +5,26 @@ from views.area_media import AreaMedia
 # TODO: Rethink how this shader business will work.
 class PyxelAreaView(AreaMedia):
 
-    def __init__(self, tile_view, actor_view, effect_view):
-        self.tile_view = tile_view
-        self.actor_view = actor_view
-        self.effect_view = effect_view
+    def __init__(self, renderer, tile_shader, effects_shader, actor_shader):
+        self.renderer = renderer
+        self.tile_shader = tile_shader
+        self.effects_shader = effects_shader
+        self.actor_shader = actor_shader
 
     # TODO: What is the difference between render and draw?!?
     def render(self):
-        self.tile_view = self.tile_view.next()
-        self.actor_view = self.actor_view.next()
-        self.effect_view = self.effect_view.next()
+        self.renderer = self.renderer.next()
 
     def with_actor(self, x, y, key):
-        self.actor_view.add(x, y, key[0])
+        self.renderer.queue_actor(x, y, key[0])
         return self
 
     def with_effect(self, x, y, effect_description):
-        self.effect_view.add(x, y, effect_description)
+        self.renderer.queue_effect(x, y, effect_description)
         return self
 
     def with_open_space(self, x, y):
-        self.tile_view.add(x, y, 'ground')
+        self.renderer.queue_tile(x, y, "ground")
         return self
 
     def with_area(self, area):
@@ -37,11 +36,7 @@ class PyxelAreaView(AreaMedia):
 
     # TODO: Introduce input polling and create input strategy that reads from the pyxel view.
     def __draw(self):
-        pyxel.cls(col=0)
-        time = pyxel.frame_count
-        self.tile_view.draw(time)
-        self.effect_view.draw(time)
-        self.actor_view.draw(time)
+        self.renderer.draw(self.tile_shader, self.effects_shader, self.actor_shader, pyxel.frame_count)
 
     def __update(self):
         pass

@@ -1,13 +1,14 @@
 import pyxel
-import math
 
 
 
 class PyxelRenderer:
 
-    def __init__(self, offset, queued_rect, resolution, tiles=set(), actors=set(), effects=set()):
+    def __init__(self, resolution, offset=(0, 0), queued_offset=None, tiles=set(), actors=set(), effects=set()):
         self.offset = offset
-        self.queued_rect = queued_rect
+        self.queued_offset = queued_offset
+        self.resolution = resolution
+        self.scale = max(self.resolution) + 1
         self.tiles = tiles
         self.actors = actors
         self.effects = effects
@@ -16,26 +17,37 @@ class PyxelRenderer:
         self.queued_effects = set()
 
     def queue_actor(self, x, y, description):
-        pass
+        self.queued_actors.add((x, y, description))
+        self.__take_min_coords(x, y)
 
     def queue_tile(self, x, y, description):
-        pass
+        self.queued_tiles.add((x, y, description))
+        self.__take_min_coords(x, y)
 
     def queue_effect(self, x, y, description):
+        self.queued_effects.add((x, y, description))
+        self.__take_min_coords(x, y)
 
     def next(self):
-        x_offset = self.__center(self.queued_rect[0], self.queued_rect[1])
-        y_offset = self.__center(self.queued_rect[2], self.queued_rect[3])
-        return PyxelRenderer(self.queued_rect, (0, 0, 0, 0), self.queued_tiles, self.queued_actors, self.queued_tiles)
+        return PyxelRenderer(self.resolution, self.queued_offset, None, self.queued_tiles, self.queued_actors, self.queued_tiles)
 
-    def draw(self, x, y, color):
-        pyxel.pset(x + self.h_margin, y + self.v_margin, color)
+    def draw(self, tile_shader, effect_shader, actor_shader, time):
+        pyxel.cls(col=0)
+        for x, y, description in self.tiles:
+            self.__draw(x, y, description, tile_shader, time)
+        for x, y, description in self.effects:
+            self.__draw(x, y, description, effect_shader, time)
+        for x, y, description in self.actors:
+            self.__draw(x, y, description, actor_shader, time)
 
-    def __updated_rect(self, x, y):
-        self.queued_rect[0] = min(self.queued_rect[0], x)
-        self.queued_rect[1] = max(self.queued_rect[1], x)
-        self.queued_rect[2] = min(self.queued_rect[2], y)
-        self.queued_rect[3] = max(self.queued_rect[3], y)
+    def __draw(self, x, y, description, shader, time):
+        offset_x, offset_y = self.offset
+        for px in self.resolution:
+            for py in self.resolution:
+                screen_x = 12 + px + x * self.scale - offset_x
+                screen_y = 12 + py + y * self.scale - offset_y
+                shader.color(lambda color: pyxel.pset(screen_x, screen_y, color), (x, y, description), time)
 
-    def __center(self, a, b):
-        return a + math.floor((b - a) * 0.5)
+    def __take_min_coords(self, x, y):
+        self.queued_offset = (x, y) if self.queued_offset is None else (min(self.queued_offset[0], x), min(self.queued_offset[1], y))
+
