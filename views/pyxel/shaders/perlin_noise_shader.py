@@ -5,7 +5,7 @@ import numpy as np
 class PerlinNoiseShader:
 
     # TODO: Refactor noise out of this shader, instead pass in noise pre-generated.
-    def __init__(self, noise_size=512, noise_scale=100.0, grass_threshold=0.01):
+    def __init__(self, noise_size=256, noise_scale=500.0, grass_threshold=0.05):
         shape = (noise_size, noise_size)
         octaves = 6
         persistence = 0.5
@@ -24,10 +24,10 @@ class PerlinNoiseShader:
                                                  repeaty=noise_size,
                                                  base=0)
 
-    def color(self, renderer, description, time):
-        x, y, _ = description
-        nx = x % self.noise_scale
-        ny = y % self.noise_scale
+    def color(self, renderer, position, description, time):
+        x, y, screen_x, screen_y = position
+        nx = screen_x % self.noise_scale
+        ny = screen_y % self.noise_scale
         color = 15
         if self.noise[nx][ny] < self.grass_threshold:
             color = 11

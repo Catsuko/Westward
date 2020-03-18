@@ -43,13 +43,13 @@ class PointCamera(AreaMedia):
         return self.__printed(self.media.with_door(x, y)) if self.__within_bounds(x, y) else self
 
     def __within_bounds(self, x, y):
-        return 0 <= x <= self.size * 2 and 0 <= y <= self.size * 2
+        return abs(x - self.x) <= self.size and abs(y - self.y) <= self.size
 
     def __printed(self, media):
         return PointCamera(self.x, self.y, self.size, media)
 
     def __transform_point(self, x, y):
-        return self.size + x - self.x, self.size + y - self.y
+        return x, y
 
     def __str__(self):
         return str(self.media)
