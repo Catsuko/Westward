@@ -30,7 +30,7 @@ class AirborneActorEffectTests(unittest.TestCase):
 
     def __create_area_with_effect(self, start_position, direction, turns_airborne):
         actor = Actor(NullAction(), NullInteraction(), "d", Components())
-        airborne_effect = AirborneActorEffect(actor, start_position, direction, Countdown(turns_airborne))
+        airborne_effect = AirborneActorEffect(actor, Countdown(turns_airborne), start_position, direction)
         return AreaBuilder().rectangle(5, 5).to_area().with_effect(airborne_effect)
 
 

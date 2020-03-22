@@ -13,6 +13,7 @@ class ActorTarget(AreaMedia):
     def with_actor(self, x, y, key):
         return ActorTarget(self.target_key, (x, y)) if key == self.target_key else self
 
+    # TODO: Position should become a value object and normalize flag can be refactored into a method.
     def direction_to(self, origin, normalize=True):
         return (0, 0) if self.target_position is None else origin.direction_from(*self.target_position, normalize)
 
