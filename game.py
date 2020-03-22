@@ -43,11 +43,9 @@ mapped_shader = ColorMappedShader(JsonEnvironment('config/pyxel_environment.json
 pyxel_view = PyxelAreaView(PyxelRenderer(range(8)), PerlinNoiseShader(), FlickerShader(mapped_shader, 4), mapped_shader)
 camera = ActorCamera(player_key, PointCamera(0, 0, 6, pyxel_view))
 # TODO: Action that waits for an actor to enter within a certain distance? Make enemies idle about!
-area = RenderedArea(AreaBuilder().rectangle(20, 20)
-                    .with_actor(player, 10, 10)
-                    .with_actor(bandit, 15, 10)
-                    .with_actor(bandit.unique(), 5, 10)
-                    .with_actor(bandit.unique(), 10, 0)
+area = RenderedArea(AreaBuilder().rectangle(11, 11)
+                    .with_actor(player, 0, 0)
+                    .with_open_space(11, 5)
                     .to_area(), camera)
 def update_loop(a):
     while True:
